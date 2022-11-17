@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.weather-wrapper {
+  display: grid;
+  grid-template-columns: 225px 1fr;
+  grid-template-rows: 10% 10% 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.side-bar {
+  grid-row: 1/4;
+  height: 100%;
+  background-color: #faedcd;
+}
+
+.location-component {
+}
+
+.search-component {
+}
+
+.weather-component {
+}

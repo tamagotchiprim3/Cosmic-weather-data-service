@@ -1,0 +1,62 @@
+<div class="side-bar-wrapper">
+  <mat-form-field class="autocomplete" appearance="fill">
+    <mat-label>Get current weather by:</mat-label>
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="Number"
+      matInput
+      [matAutocomplete]="auto"
+      [formControl]="autocompleteControl"
+      value="coordinates"
+      class="autocomplete-inputs"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of autocompleteOptions"
+        [value]="option.value"
+      >
+        {{ option.label }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="locationForm" class="form-wrapper">
+    <app-input
+      *ngIf="autocompleteControl.value === 'coordinates'"
+      type="number"
+      formControlName="latitude"
+      label="Latitude"
+      placeholder="Enter a latitude"
+      errorMessage="Please enter a valid data"
+    ></app-input>
+
+    <app-input
+      *ngIf="autocompleteControl.value === 'coordinates'"
+      formControlName="longitude"
+      type="number"
+      label="Longitude"
+      placeholder="Enter a longitude"
+      errorMessage="Please enter a valid data"
+    ></app-input>
+
+    <app-input
+      *ngIf="autocompleteControl.value === 'city'"
+      formControlName="city"
+      type="text"
+      label="City"
+      placeholder="Enter a city"
+      errorMessage="Please enter a valid data"
+    ></app-input>
+
+    <app-input
+      *ngIf="autocompleteControl.value === 'zip'"
+      formControlName="zip"
+      type="number"
+      label="Zip code"
+      placeholder="Enter a zip code"
+      errorMessage="Please enter a valid data"
+    ></app-input>
+  </form>
+</div>

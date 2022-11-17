@@ -1,0 +1,7 @@
+{
+  "header": {
+    "current": "Current weather",
+    "history": "History",
+    "forecasts": "Forecasts"
+  }
+}
