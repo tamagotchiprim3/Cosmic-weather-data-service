@@ -13,6 +13,9 @@
     .mat-form-field.mat-focused .mat-form-field-ripple {
       background-color: rgba(255, 255, 255, 0.7);
     }
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+      border-radius: 15px;
+    }
     .mat-divider {
       border-top-color: #d4a373;
       opacity: 50%;
@@ -26,20 +29,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   width: 100%;
   margin-top: 15px;
-}
-
-.autocomplete {
-  width: 200px;
-}
-
-.autocomplete-inputs {
-  color: rgba(255, 255, 255, 0.7);
 }
 
 .form-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 25px;
 }

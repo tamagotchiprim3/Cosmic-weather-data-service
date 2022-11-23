@@ -1,0 +1,21 @@
+<mat-form-field class="autocomplete" appearance="fill">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    type="text"
+    [placeholder]="placeholder"
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="control"
+    [value]="defaulfValue"
+    class="autocomplete-inputs"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of options" [value]="option.value">
+      {{ option.label }}
+    </mat-option>
+  </mat-autocomplete>
+
+  <mat-error *ngIf="control.invalid && control.touched">
+    {{ errorMessage }}
+  </mat-error>
+</mat-form-field>

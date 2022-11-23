@@ -1,26 +1,13 @@
 <div class="side-bar-wrapper">
-  <mat-form-field class="autocomplete" appearance="fill">
-    <mat-label>Get current weather by:</mat-label>
-    <input
-      type="text"
-      placeholder="Pick one"
-      aria-label="Number"
-      matInput
-      [matAutocomplete]="auto"
-      [formControl]="autocompleteControl"
-      value="coordinates"
-      class="autocomplete-inputs"
-    />
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option
-        *ngFor="let option of autocompleteOptions"
-        [value]="option.value"
-      >
-        {{ option.label }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <app-autocomplete-input
+    label="Get current weather by:"
+    placeholder="Pick one"
+    [formControl]="autocompleteControl"
+    defaulfValue="coordinates"
+    [options]="autocompleteOptions"
+  ></app-autocomplete-input>
 
+  <div>Location:</div>
   <mat-divider></mat-divider>
   <form [formGroup]="locationForm" class="form-wrapper">
     <app-input

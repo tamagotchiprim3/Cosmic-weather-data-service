@@ -6,8 +6,8 @@
 
 .weather-wrapper {
   display: grid;
-  grid-template-columns: 225px 1fr;
-  grid-template-rows: 10% 10% 1fr;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 25px 60px 1fr;
   height: 100%;
   width: 100%;
 }
@@ -18,11 +18,10 @@
   background-color: #faedcd;
 }
 
-.location-component {
-}
-
-.search-component {
-}
-
 .weather-component {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 15px;
+  padding: 25px 35px;
 }

@@ -8,6 +8,8 @@ import {
   geocodingByCitySuccessed,
   geocodingByZip,
   geocodingByZipSuccessed,
+  getAirPollution,
+  getAirPollutionSuccessed,
   getCurrentWeather,
   getCurrentWeatherSuccessed,
 } from './current-weather.actions';
@@ -20,7 +22,7 @@ export class CurrentWeatherEffect {
       mergeMap((action) =>
         this.geocodingService.getCoordinatesByCity(action.data).pipe(
           switchMap((data) => [
-            geocodingByCitySuccessed({ data: data }),
+            geocodingByCitySuccessed({ data: data[0] }),
             getCurrentWeather({
               data: {
                 lat: data[0].lat,
@@ -61,12 +63,35 @@ export class CurrentWeatherEffect {
         this.weatherService
           .getCurrentWeather(action.data.lat, action.data.lon)
           .pipe(
-            map((data) => getCurrentWeatherSuccessed({ data: data })),
+            switchMap((data) => [
+              getCurrentWeatherSuccessed({ data: data }),
+              getAirPollution({
+                data: {
+                  lat: action.data.lat,
+                  lon: action.data.lon,
+                },
+              }),
+            ]),
             catchError(() => EMPTY)
           )
       )
     );
   });
+
+  public getAirPollutionEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAirPollution),
+      mergeMap((action) =>
+        this.weatherService
+          .getCurrentAirPollution(action.data.lat, action.data.lon)
+          .pipe(
+            map((data) => getAirPollutionSuccessed({ data: data })),
+            catchError(() => EMPTY)
+          )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private geocodingService: GeocodingApiService,

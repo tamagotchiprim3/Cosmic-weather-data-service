@@ -4,8 +4,10 @@ import {
   IGeocodingByZipResponse,
 } from 'src/app/shared/interfaces/geocoding.interface';
 import {
+  IAirPollutionResponse,
   IGetCurrentWeather,
   IGetCurrentWeatherResponse,
+  IMapForm,
 } from 'src/app/shared/interfaces/weather.interface';
 
 export const geocodingByCity = createAction(
@@ -15,7 +17,7 @@ export const geocodingByCity = createAction(
 
 export const geocodingByCitySuccessed = createAction(
   '[Current weather] geocoding by city successed',
-  props<{ data: IGeocodingByCityResponse[] }>()
+  props<{ data: IGeocodingByCityResponse }>()
 );
 
 export const geocodingByZip = createAction(
@@ -36,4 +38,14 @@ export const getCurrentWeather = createAction(
 export const getCurrentWeatherSuccessed = createAction(
   '[Current weather] get current weather successed',
   props<{ data: IGetCurrentWeatherResponse }>()
+);
+
+export const getAirPollution = createAction(
+  '[Current weather] get air pollution',
+  props<{ data: IGetCurrentWeather }>()
+);
+
+export const getAirPollutionSuccessed = createAction(
+  '[Current weather] get air pollution successed',
+  props<{ data: IAirPollutionResponse }>()
 );

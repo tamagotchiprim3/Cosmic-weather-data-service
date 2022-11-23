@@ -3,23 +3,29 @@ import {
   IGeocodingByCityResponse,
   IGeocodingByZipResponse,
 } from 'src/app/shared/interfaces/geocoding.interface';
-import { IGetCurrentWeatherResponse } from 'src/app/shared/interfaces/weather.interface';
+import {
+  IAirPollutionResponse,
+  IGetCurrentWeatherResponse,
+} from 'src/app/shared/interfaces/weather.interface';
 import {
   geocodingByCitySuccessed,
   geocodingByZipSuccessed,
+  getAirPollutionSuccessed,
   getCurrentWeatherSuccessed,
 } from './current-weather.actions';
 
 export interface ICurrentState {
-  locationByCity: IGeocodingByCityResponse[];
+  locationByCity: IGeocodingByCityResponse;
   locationByZip: IGeocodingByZipResponse;
   weather: IGetCurrentWeatherResponse;
+  airPollution: IAirPollutionResponse;
 }
 
 const initialState: ICurrentState = {
   locationByCity: null,
   locationByZip: null,
   weather: null,
+  airPollution: null,
 };
 
 export const currentWeatherReducer = createReducer(
@@ -40,6 +46,12 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       weather: data,
+    };
+  }),
+  on(getAirPollutionSuccessed, (state, { data }) => {
+    return {
+      ...state,
+      airPollution: data,
     };
   })
 );

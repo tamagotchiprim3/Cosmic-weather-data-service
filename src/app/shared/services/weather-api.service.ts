@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'lodash';
 import { Observable } from 'rxjs';
-import { IGetCurrentWeatherResponse } from '../interfaces/weather.interface';
+import {
+  IAirPollutionResponse,
+  IGetCurrentWeatherResponse,
+  IMapForm,
+} from '../interfaces/weather.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +14,8 @@ import { IGetCurrentWeatherResponse } from '../interfaces/weather.interface';
 export class WeatherApiService {
   public endPoints = {
     currentWeather: 'https://api.openweathermap.org/data/2.5/weather',
+    airPollution: 'http://api.openweathermap.org/data/2.5/air_pollution',
+    currentWeatherMap: 'http://maps.openweathermap.org/maps/2.0/weather',
   };
 
   constructor(private http: HttpClient) {}
@@ -23,8 +30,21 @@ export class WeatherApiService {
         params: {
           lat: lat,
           lon: lon,
+          units: 'metric',
         },
       }
     );
+  }
+
+  public getCurrentAirPollution(
+    lat: number,
+    lon: number
+  ): Observable<IAirPollutionResponse> {
+    return this.http.get<IAirPollutionResponse>(this.endPoints.airPollution, {
+      params: {
+        lat: lat,
+        lon: lon,
+      },
+    });
   }
 }

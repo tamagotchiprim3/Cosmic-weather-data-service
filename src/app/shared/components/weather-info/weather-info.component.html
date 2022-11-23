@@ -1,1 +1,24 @@
-<p>weather-info works!</p>
+<app-map-weather-card
+  *ngIf="lat && lon"
+  [lon]="lon"
+  [lat]="lat"
+  class="map-card-wrapper"
+>
+</app-map-weather-card>
+
+<app-air-weather-card
+  *ngIf="airPollution"
+  label="Air pollution"
+  [airIndex]="airPollution.list[0].main.aqi"
+  [date]="airPollution.date"
+  [components]="airComponents"
+  class="air-card-wrapper"
+>
+</app-air-weather-card>
+
+<app-weather-card
+  *ngFor="let weatherProperty of currentWeather"
+  class="card-wrapper"
+  [label]="weatherProperty.label"
+  [value]="weatherProperty.value"
+></app-weather-card>

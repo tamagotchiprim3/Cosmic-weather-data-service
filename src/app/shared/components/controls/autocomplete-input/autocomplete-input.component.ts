@@ -1,17 +1,20 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { IAutocompleteOption } from 'src/app/shared/constants/autocomplete-options.const';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
+  selector: 'app-autocomplete-input',
+  templateUrl: './autocomplete-input.component.html',
+  styleUrls: ['./autocomplete-input.component.scss'],
 })
-export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
-  @Input() public type: string;
+export class AutocompleteInputComponent
+  implements OnInit, ControlValueAccessor, DoCheck
+{
+  @Input() public defaulfValue: string = '';
+  @Input() public options: IAutocompleteOption[];
   @Input() public label: string;
   @Input() public errorMessage: string;
   @Input() public placeholder: string;
-  @Input() public width: string = '250px';
 
   public control = new FormControl();
   public value: any;
