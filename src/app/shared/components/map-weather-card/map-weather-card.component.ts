@@ -3,7 +3,6 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
@@ -19,11 +18,15 @@ export class MapWeatherCardComponent implements OnChanges, OnDestroy {
   @Input() public lat: number;
   @Input() public lon: number;
 
-  public map: Map;
+  public map?: Map;
 
   constructor() {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lat'].currentValue && changes['lon'].currentValue) {
+      if (this.map) {
+        this.map.off();
+        this.map.remove();
+      }
       this.map = L.map('map').setView([this.lat, this.lon], 13);
 
       const mainLayer = L.tileLayer(

@@ -1,7 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CURRENT_WEATHER_PATH } from 'src/app/shared/constants/routing.const';
-import { GeocodingApiService } from 'src/app/shared/services/geocoding-api.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-core',
@@ -9,7 +6,6 @@ import { GeocodingApiService } from 'src/app/shared/services/geocoding-api.servi
   styleUrls: ['./core.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoreComponent implements OnInit {
+export class CoreComponent {
   constructor() {}
-  ngOnInit(): void {}
 }

@@ -29,7 +29,6 @@ export class SideBarComponent implements OnInit {
   @Output() public location = new EventEmitter<
     IGetCurrentWeather | string | number
   >();
-  @Output() public map = new EventEmitter<IMapForm>();
 
   public autocompleteMapOptions: IAutocompleteOption[] =
     AUTOCOMPLETE_MAP_OPTIONS;

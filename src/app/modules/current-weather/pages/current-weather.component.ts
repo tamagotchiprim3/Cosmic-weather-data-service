@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
@@ -42,7 +42,6 @@ export class CurrentWeatherComponent implements OnDestroy {
   public longitude: number;
 
   constructor(private store: Store, private weatherApi: WeatherApiService) {}
-
   ngOnDestroy(): void {}
 
   public clearEmptyCards(cards: IWeatherCard[]): IWeatherCard[] {

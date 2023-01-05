@@ -1,4 +1,3 @@
-import { lab } from 'd3';
 import { IWeatherCard } from '../interfaces/weather.interface';
 
 export const WEATHER_CARD_TEMPLATE: IWeatherCard[] = [
