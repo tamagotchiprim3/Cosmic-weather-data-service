@@ -15,6 +15,7 @@ import {
   selectCurrentWeather,
   selectLatitude,
   selectLongitude,
+  selectWeatherCards,
 } from 'src/app/store/current-weather/current-weather.selectors';
 import {
   AIR_POLLUTION_CARD_TEMPLATE,
@@ -43,55 +44,24 @@ export class WeatherInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectCurrentWeather)
-      .pipe(untilDestroyed(this), filter(Boolean))
+      .select(selectWeatherCards)
+      .pipe(untilDestroyed(this))
       .subscribe((weather) => {
-        const weatherData = cloneDeep(weather);
-        if (weatherData.main) {
-          Object.entries(weatherData.main).forEach(([key, value]) => {
-            this.writeValueInCard(WEATHER_CARD_TEMPLATE, key, value);
-          });
+        if (weather) {
+          this.currentWeather = weather;
+          this.cdR.markForCheck();
         }
-        if (weatherData.wind) {
-          Object.entries(weatherData.wind).forEach(([key, value]) => {
-            this.writeValueInCard(WEATHER_CARD_TEMPLATE, key, value);
-          });
-        }
-        if (weatherData.rain) {
-          Object.entries(weatherData.rain).forEach(([key, value]) => {
-            this.writeValueInCard(WEATHER_CARD_TEMPLATE, key, value, 'r');
-          });
-        }
-        if (weatherData.snow) {
-          Object.entries(weatherData.snow).forEach(([key, value]) => {
-            this.writeValueInCard(WEATHER_CARD_TEMPLATE, key, value, 's');
-          });
-        }
-        WEATHER_CARD_TEMPLATE[
-          WEATHER_CARD_TEMPLATE.findIndex((item) => item.key === 'visibility')
-        ].value = weatherData.visibility;
-        WEATHER_CARD_TEMPLATE[
-          WEATHER_CARD_TEMPLATE.findIndex((item) => item.key === 'all')
-        ].value = weatherData.clouds.all;
-        this.currentWeather = this.clearEmptyCards(WEATHER_CARD_TEMPLATE);
-        this.cdR.markForCheck();
       });
 
     this.store
       .select(selectAirPollution)
       .pipe(untilDestroyed(this), filter(Boolean))
       .subscribe((airPollution) => {
-        const airPollutionData = cloneDeep(airPollution);
-        airPollutionData.date = new Date(airPollutionData.list[0].dt * 1000);
-        Object.entries(airPollutionData.list[0].components).forEach(
-          ([key, value]) => {
-            this.writeValueInCard(AIR_POLLUTION_CARD_TEMPLATE, key, value);
-          }
-        );
-        this.airComponents = AIR_POLLUTION_CARD_TEMPLATE;
-        this.airPollution = airPollutionData;
+        this.airComponents = airPollution[0] as IWeatherCard[];
+        this.airPollution = airPollution[1] as IAirPollutionResponse;
         this.cdR.markForCheck();
       });
+
     this.store
       .select(selectLatitude)
       .pipe(untilDestroyed(this))

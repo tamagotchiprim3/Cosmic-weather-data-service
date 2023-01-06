@@ -1,11 +1,12 @@
 <div class="search-wrapper">
-  <app-input
+  <app-search-input
     [formControl]="searchControl"
+    [nodes]="weatherCards"
     type="text"
     label="Search"
     placeholder="Enter a weather data"
     width="100%"
     class="search"
   >
-  </app-input>
+  </app-search-input>
 </div>

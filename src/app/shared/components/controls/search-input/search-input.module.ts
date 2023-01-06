@@ -1,20 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SearchInputComponent } from './search-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { SearchInputModule } from '../controls/search-input/search-input.module';
-import { SearchComponent } from './search.component';
 
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [SearchInputComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SearchInputModule,
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -23,6 +21,6 @@ import { SearchComponent } from './search.component';
     MatChipsModule,
     MatFormFieldModule,
   ],
-  exports: [SearchComponent],
+  exports: [SearchInputComponent],
 })
-export class SearchModule {}
+export class SearchInputModule {}
