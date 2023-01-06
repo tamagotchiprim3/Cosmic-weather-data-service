@@ -12,9 +12,12 @@ import {
   geocodingByZipSuccessed,
   getAirPollutionSuccessed,
   getCurrentWeatherSuccessed,
+  writeCurrentPosition,
 } from './current-weather.actions';
 
 export interface ICurrentState {
+  latitude: number;
+  longitude: number;
   locationByCity: IGeocodingByCityResponse;
   locationByZip: IGeocodingByZipResponse;
   weather: IGetCurrentWeatherResponse;
@@ -22,6 +25,8 @@ export interface ICurrentState {
 }
 
 const initialState: ICurrentState = {
+  latitude: null,
+  longitude: null,
   locationByCity: null,
   locationByZip: null,
   weather: null,
@@ -45,6 +50,8 @@ export const currentWeatherReducer = createReducer(
   on(getCurrentWeatherSuccessed, (state, { data }) => {
     return {
       ...state,
+      latitude: data.coord.lat,
+      longitude: data.coord.lon,
       weather: data,
     };
   }),
@@ -52,6 +59,13 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       airPollution: data,
+    };
+  }),
+  on(writeCurrentPosition, (state, { data }) => {
+    return {
+      ...state,
+      longitude: data.lon,
+      latitude: data.lat,
     };
   })
 );

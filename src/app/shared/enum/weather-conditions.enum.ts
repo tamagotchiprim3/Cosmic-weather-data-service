@@ -5,4 +5,13 @@ export enum Weather {
   Rain = './../../../../assets/weather-conditions/Rain.jpg',
   Snow = './../../../../assets/weather-conditions/Snow.jpg',
   Thunderstorm = './../../../../assets/weather-conditions/Thunderstorm.jpg',
+  Fog = './../../../../assets/weather-conditions/Fog.jpg',
+  Tornado = './../../../../assets/weather-conditions/Tornado.jpg',
+  Ash = './../../../../assets/weather-conditions/Ash.jpg',
+  Dust = './../../../../assets/weather-conditions/Dust.jpg',
+  Haze = './../../../../assets/weather-conditions/Haze.jpg',
+  Mist = './../../../../assets/weather-conditions/Mist.jpg',
+  Sand = './../../../../assets/weather-conditions/Sand.jpg',
+  Smoke = './../../../../assets/weather-conditions/Smoke.jpg',
+  Squall = './../../../../assets/weather-conditions/Squall.jpg',
 }

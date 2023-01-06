@@ -49,3 +49,8 @@ export const getAirPollutionSuccessed = createAction(
   '[Current weather] get air pollution successed',
   props<{ data: IAirPollutionResponse }>()
 );
+
+export const writeCurrentPosition = createAction(
+  '[Current weather] write current position',
+  props<{ data: IGetCurrentWeather }>()
+);

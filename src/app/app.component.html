@@ -1,2 +1,6 @@
-<img [src]="this.weatherPicture" class="background-picture" />
+<img
+  *ngIf="this.weatherPicture"
+  [src]="this.weatherPicture"
+  class="background-picture"
+/>
 <router-outlet></router-outlet>

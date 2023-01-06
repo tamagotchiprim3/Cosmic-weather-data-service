@@ -23,7 +23,7 @@ export const selectTimezone = createSelector(
 );
 
 export const getLatitudeSelect = (state: ICurrentState) => {
-  return state.weather?.coord.lat;
+  return state.latitude;
 };
 
 export const selectLatitude = createSelector(
@@ -32,7 +32,7 @@ export const selectLatitude = createSelector(
 );
 
 export const getLongitudeSelect = (state: ICurrentState) => {
-  return state.weather?.coord.lon;
+  return state.longitude;
 };
 
 export const selectLongitude = createSelector(

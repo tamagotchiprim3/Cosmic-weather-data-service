@@ -1,23 +1,6 @@
 <div class="weather-wrapper">
-  <app-side-bar
-    class="side-bar"
-    (location)="getCurrentWeather($event)"
-  ></app-side-bar>
-
-  <app-location
-    [location]="location"
-    [timezone]="timezone"
-    [latitude]="latitude"
-    [longitude]="longitude"
-    class="location-component"
-  ></app-location>
+  <app-side-bar class="side-bar"></app-side-bar>
+  <app-location class="location-component"></app-location>
   <app-search class="search-component"></app-search>
-  <app-weather-info
-    [currentWeather]="currentWeather"
-    [airPollution]="airPollution"
-    [airComponents]="airComponents"
-    [lat]="latitude"
-    [lon]="longitude"
-    class="weather-component"
-  ></app-weather-info>
+  <app-weather-info class="weather-component"></app-weather-info>
 </div>
