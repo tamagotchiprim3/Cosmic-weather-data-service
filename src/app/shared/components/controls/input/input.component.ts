@@ -1,5 +1,11 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NgControl,
+  ValidatorFn,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -7,6 +13,8 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
+  @Input() public min: number;
+  @Input() public max: number;
   @Input() public type: string;
   @Input() public label: string;
   @Input() public errorMessage: string;
@@ -33,6 +41,7 @@ export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   writeValue(value: any): void {
     this.value = value;
+    this.control.setValue(value);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

@@ -23,6 +23,19 @@
       border-radius: 15px;
       background-color: rgba(0, 0, 0, 0);
     }
+    .mdc-text-field .mdc-text-field__input {
+      caret-color: white;
+    }
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .mat-mdc-form-field-focus-overlay {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .mdc-text-field--focused:not(.mdc-text-field--disabled)
+      .mdc-floating-label {
+      color: white;
+    }
   }
 }
 
@@ -30,8 +43,13 @@
   width: 250px;
 }
 
+.input-label {
+  color: white;
+}
+
 .number-inputs {
   color: rgba(255, 255, 255, 1);
+  height: 20px;
 }
 
 input::-webkit-outer-spin-button,

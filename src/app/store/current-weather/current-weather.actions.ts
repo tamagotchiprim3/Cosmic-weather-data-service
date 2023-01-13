@@ -7,7 +7,6 @@ import {
   IAirPollutionResponse,
   IGetCurrentWeather,
   IGetCurrentWeatherResponse,
-  IMapForm,
 } from 'src/app/shared/interfaces/weather.interface';
 
 export const geocodingByCity = createAction(

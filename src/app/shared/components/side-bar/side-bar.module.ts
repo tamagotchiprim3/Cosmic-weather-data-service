@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { AutocompleteInputModule } from '../controls/autocomplete-input/autocomplete-input.module';
-import { InputModule } from '../controls/number-input/input.module';
+import { InputModule } from '../controls/input/input.module';
 import { SideBarComponent } from './side-bar.component';
 @NgModule({
   declarations: [SideBarComponent],

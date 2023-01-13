@@ -15,12 +15,8 @@ import {
   templateUrl: './air-weather-card.component.html',
   styleUrls: ['./air-weather-card.component.scss'],
 })
-export class AirWeatherCardComponent implements OnInit {
-  @Input() public airIndex: number;
-  @Input() public date: Date;
-  @Input() public components: IWeatherCard[];
+export class AirWeatherCardComponent {
+  @Input() public data: IWeatherCard;
 
   constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,11 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  selectLatitude,
-  selectLocation,
-  selectLongitude,
-  selectTimezone,
-} from 'src/app/store/current-weather/current-weather.selectors';
+import { selectLocation } from 'src/app/store/current-weather/current-weather.selectors';
+import { ILocation } from '../../interfaces/weather.interface';
 
 @Component({
   selector: 'app-location',
@@ -13,30 +9,21 @@ import {
   styleUrls: ['./location.component.scss'],
 })
 export class LocationComponent implements OnInit {
-  public location: string;
-  public timezone: string;
-  public latitude: number;
-  public longitude: number;
+  public location: ILocation = {
+    name: '',
+    timezone: '',
+    latitude: '',
+    longitude: '',
+  };
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cdR: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.store.select(selectLocation).subscribe((location: string): void => {
-      this.location = location;
-    });
-
-    this.store.select(selectTimezone).subscribe((timezone: number): void => {
-      if (timezone) {
-        this.timezone = '+' + timezone / 3600 + ' UTC';
+    this.store.select(selectLocation).subscribe((location: ILocation): void => {
+      if (location) {
+        this.location = location;
+        this.cdR.markForCheck();
       }
-    });
-
-    this.store.select(selectLatitude).subscribe((latitude: number): void => {
-      this.latitude = latitude;
-    });
-
-    this.store.select(selectLongitude).subscribe((longitude: number): void => {
-      this.longitude = longitude;
     });
   }
 }

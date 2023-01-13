@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'lodash';
 import { Observable } from 'rxjs';
 import {
   IAirPollutionResponse,
   IGetCurrentWeatherResponse,
-  IMapForm,
 } from '../interfaces/weather.interface';
 
 @Injectable({

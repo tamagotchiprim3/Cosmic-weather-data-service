@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  ::ng-deep {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .mat-mdc-form-field-focus-overlay {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+}
+
+.input-label {
+  color: white;
+}

@@ -39,7 +39,7 @@ import {
   styleUrls: ['./side-bar.component.scss'],
 })
 @UntilDestroy()
-export class SideBarComponent implements OnInit, OnDestroy, OnChanges {
+export class SideBarComponent implements OnInit, OnDestroy {
   public autocompleteMapOptions: IAutocompleteOption[] =
     AUTOCOMPLETE_MAP_OPTIONS;
   public autocompleteOptions: IAutocompleteOption[] = AUTOCOMPLETE_OPTIONS;
@@ -55,6 +55,26 @@ export class SideBarComponent implements OnInit, OnDestroy, OnChanges {
       city: ['', Validators.required],
       zip: ['', Validators.required],
     });
+    this.locationForm
+      .get('latitude')
+      .valueChanges.subscribe((value: number) => {
+        if (value < -90) {
+          this.locationForm.get('latitude').setValue(-90);
+        } else if (value > 90) {
+          this.locationForm.get('latitude').setValue(90);
+        }
+      });
+
+    this.locationForm
+      .get('longitude')
+      .valueChanges.subscribe((value: number) => {
+        if (value < -180) {
+          this.locationForm.get('longitude').setValue(-180);
+        } else if (value > 180) {
+          this.locationForm.get('longitude').setValue(180);
+        }
+      });
+
     this.locationForm.valueChanges
       .pipe(untilDestroyed(this), debounceTime(1000), distinctUntilChanged())
       .subscribe((formValue: IWeatherForm): void => {
@@ -73,18 +93,6 @@ export class SideBarComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
   }
-  ngOnDestroy(): void {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['latitude'].currentValue && changes['longitude'].currentValue) {
-      console.log(this.latitude);
-      this.store.dispatch(
-        getCurrentWeather({
-          data: { lat: this.latitude, lon: this.longitude },
-        })
-      );
-    }
-  }
 
   ngOnInit(): void {
     this.store
@@ -100,7 +108,6 @@ export class SideBarComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe((lon) => {
         this.longitude = lon;
         this.locationForm.get('longitude').patchValue(lon);
-
         console.log(this.longitude);
       });
 
@@ -111,4 +118,6 @@ export class SideBarComponent implements OnInit, OnDestroy, OnChanges {
         this.locationForm.reset();
       });
   }
+
+  ngOnDestroy(): void {}
 }

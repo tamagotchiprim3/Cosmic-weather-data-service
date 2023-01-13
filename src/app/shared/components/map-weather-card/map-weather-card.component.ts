@@ -1,5 +1,6 @@
 import {
   Component,
+  DoCheck,
   Input,
   OnChanges,
   OnDestroy,
@@ -14,15 +15,21 @@ import { MAP_LAYERS } from '../../constants/map-layers.const';
   templateUrl: './map-weather-card.component.html',
   styleUrls: ['./map-weather-card.component.scss'],
 })
-export class MapWeatherCardComponent implements OnChanges, OnDestroy {
+export class MapWeatherCardComponent implements OnChanges {
   @Input() public lat: number;
   @Input() public lon: number;
 
   public map?: Map;
 
   constructor() {}
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['lat'].currentValue && changes['lon'].currentValue) {
+    if (
+      changes['lat'] &&
+      changes['lat'].currentValue &&
+      changes['lon'] &&
+      changes['lon'].currentValue
+    ) {
       if (this.map) {
         this.map.off();
         this.map.remove();
@@ -43,6 +50,4 @@ export class MapWeatherCardComponent implements OnChanges, OnDestroy {
       L.control.layers(layersGroup).addTo(this.map);
     }
   }
-
-  ngOnDestroy(): void {}
 }

@@ -9,11 +9,21 @@
     .mat-form-field-label {
       color: white;
     }
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .mat-mdc-form-field-focus-overlay {
+      background-color: rgba(0, 0, 0, 0);
+    }
   }
 }
 
 .autocomplete {
   width: 250px;
+}
+
+.input-label {
+  color: white;
 }
 
 .autocomplete-inputs {

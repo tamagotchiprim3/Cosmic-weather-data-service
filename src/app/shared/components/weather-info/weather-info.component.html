@@ -9,15 +9,13 @@
 <app-air-weather-card
   *ngIf="airPollution"
   label="Air pollution"
-  [airIndex]="airPollution.list[0].main.aqi"
-  [date]="airPollution.date"
-  [components]="airComponents"
+  [data]="airPollution"
   class="air-card-wrapper"
 >
 </app-air-weather-card>
 
 <app-weather-card
-  *ngFor="let weatherProperty of currentWeather"
+  *ngFor="let weatherProperty of currentWeather; let i = index"
   class="card-wrapper"
   [label]="weatherProperty.label"
   [value]="weatherProperty.value"

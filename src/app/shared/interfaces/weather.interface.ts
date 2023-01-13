@@ -5,13 +5,6 @@ export interface IWeatherForm {
   zip: number;
 }
 
-export interface IMapForm {
-  op: string;
-  z: number;
-  x: number;
-  y: number;
-}
-
 export interface IGetCurrentWeather {
   lat: number;
   lon: number;
@@ -94,4 +87,11 @@ export interface IAirComponents {
   pm2_5: number;
   pm10: number;
   nh3: number;
+}
+
+export interface ILocation {
+  name: string;
+  timezone: string;
+  latitude: number | string;
+  longitude: number | string;
 }

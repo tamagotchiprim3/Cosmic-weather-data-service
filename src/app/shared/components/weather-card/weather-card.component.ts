@@ -13,16 +13,11 @@ import { Store } from '@ngrx/store';
   templateUrl: './weather-card.component.html',
   styleUrls: ['./weather-card.component.scss'],
 })
-export class WeatherCardComponent implements OnInit, OnChanges {
+export class WeatherCardComponent implements OnInit {
   @Input() public label: string;
   @Input() public value: number;
 
   constructor(private cdR: ChangeDetectorRef) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['label'].currentValue || changes['value'].currentValue) {
-      this.cdR.markForCheck();
-    }
-  }
 
   ngOnInit(): void {}
 }

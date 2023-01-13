@@ -50,7 +50,6 @@ export class SearchInputComponent
     this.control.valueChanges.subscribe((value: any) => {
       this.onChange(value);
     });
-    this.store.select(selectWeatherCards);
   }
 
   public initErrors(): void {
