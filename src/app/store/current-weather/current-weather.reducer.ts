@@ -62,36 +62,45 @@ export const currentWeatherReducer = createReducer(
 
   on(getCurrentWeatherSuccessed, (state, { data }) => {
     const weatherData: IGetCurrentWeatherResponse = cloneDeep(data);
+    const weatherCardsTemp = [...WEATHER_CARD_TEMPLATE];
     if (!weatherData) {
       return null;
     }
     if (weatherData.main) {
       Object.entries(weatherData.main).forEach(([key, value]) => {
-        writeValueInCard(WEATHER_CARD_TEMPLATE, key, value);
+        writeValueInCard(weatherCardsTemp, key, value);
       });
     }
     if (weatherData.wind) {
       Object.entries(weatherData.wind).forEach(([key, value]) => {
-        writeValueInCard(WEATHER_CARD_TEMPLATE, key, value);
+        writeValueInCard(weatherCardsTemp, key, value);
       });
     }
     if (weatherData.rain) {
       Object.entries(weatherData.rain).forEach(([key, value]) => {
-        writeValueInCard(WEATHER_CARD_TEMPLATE, key, value, 'r');
+        writeValueInCard(weatherCardsTemp, key, value, 'r');
       });
     }
     if (weatherData.snow) {
       Object.entries(weatherData.snow).forEach(([key, value]) => {
-        writeValueInCard(WEATHER_CARD_TEMPLATE, key, value, 's');
+        writeValueInCard(weatherCardsTemp, key, value, 's');
       });
     }
-    WEATHER_CARD_TEMPLATE[
-      WEATHER_CARD_TEMPLATE.findIndex((item) => item.key === 'visibility')
-    ].value = weatherData.visibility;
-    WEATHER_CARD_TEMPLATE[
-      WEATHER_CARD_TEMPLATE.findIndex((item) => item.key === 'all')
-    ].value = weatherData.clouds.all;
-    console.log(clearEmptyCards(WEATHER_CARD_TEMPLATE));
+    const visibilityIndex = weatherCardsTemp.findIndex(
+      (item) => item.key === 'visibility'
+    );
+
+    weatherCardsTemp[visibilityIndex] = {
+      ...weatherCardsTemp[visibilityIndex],
+      value: weatherData.visibility,
+    };
+    const cloudsIndex = weatherCardsTemp.findIndex(
+      (item) => item.key === 'all'
+    );
+    weatherCardsTemp[cloudsIndex] = {
+      ...weatherCardsTemp[cloudsIndex],
+      value: weatherData.clouds.all,
+    };
     return {
       ...state,
       latitude: data.coord.lat,
@@ -103,16 +112,17 @@ export const currentWeatherReducer = createReducer(
         latitude: data.coord.lat,
         longitude: data.coord.lon,
       },
-      weatherCards: clearEmptyCards(WEATHER_CARD_TEMPLATE),
+      weatherCards: clearEmptyCards(weatherCardsTemp),
     };
   }),
 
   on(getAirPollutionSuccessed, (state, { data }) => {
     const airPollutionData: IAirPollutionResponse = cloneDeep(data);
     airPollutionData.date = new Date(airPollutionData.list[0].dt * 1000);
+    let airCardTemplate = [...AIR_POLLUTION_CARD_TEMPLATE];
     Object.entries(airPollutionData.list[0].components).forEach(
       ([key, value]) => {
-        writeValueInCard(AIR_POLLUTION_CARD_TEMPLATE, key, value);
+        writeValueInCard(airCardTemplate, key, value);
       }
     );
     const weatherCards: IWeatherCard[] = cloneDeep(state.weatherCards);
@@ -122,7 +132,7 @@ export const currentWeatherReducer = createReducer(
       value: {
         index: airPollutionData.list[0].main.aqi,
         date: airPollutionData.date,
-        components: AIR_POLLUTION_CARD_TEMPLATE,
+        components: airCardTemplate,
       },
     });
     return {

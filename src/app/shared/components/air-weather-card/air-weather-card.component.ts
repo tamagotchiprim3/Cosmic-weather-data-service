@@ -1,14 +1,5 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  IAirComponents,
-  IWeatherCard,
-} from '../../interfaces/weather.interface';
+import { Component, Input } from '@angular/core';
+import { IWeatherCard } from '../../interfaces/weather.interface';
 
 @Component({
   selector: 'app-air-weather-card',

@@ -1,3 +1,12 @@
 {
-  "editor.fontSize": 16
+  "editor.fontSize": 14,
+  "window.zoomLevel": 2,
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.folding": false,
+  "editor.smoothScrolling": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
 }

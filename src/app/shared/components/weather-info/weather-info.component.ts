@@ -43,8 +43,7 @@ export class WeatherInfoComponent implements OnInit {
           weatherCards.splice(
             weatherCards.findIndex((card) => {
               return card === airCard;
-            }),
-            1
+            })
           );
           this.currentWeather = weatherCards;
           this.cdR.markForCheck();

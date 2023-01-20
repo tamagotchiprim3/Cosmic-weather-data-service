@@ -1,11 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  Input,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
 import { MAP_LAYERS } from '../../constants/map-layers.const';

@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -28,10 +22,7 @@ import {
   AUTOCOMPLETE_OPTIONS,
   IAutocompleteOption,
 } from '../../constants/autocomplete-options.const';
-import {
-  IGetCurrentWeather,
-  IWeatherForm,
-} from '../../interfaces/weather.interface';
+import { IWeatherForm } from '../../interfaces/weather.interface';
 
 @Component({
   selector: 'app-side-bar',
@@ -108,7 +99,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
       .subscribe((lon) => {
         this.longitude = lon;
         this.locationForm.get('longitude').patchValue(lon);
-        console.log(this.longitude);
       });
 
     this.autocompleteControl.setValue(this.autocompleteOptions[0].value);

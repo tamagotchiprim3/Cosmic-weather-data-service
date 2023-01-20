@@ -5,14 +5,13 @@ export const writeValueInCard = (
   key: string,
   value: number,
   add?: string
-) => {
+): void => {
   let conKey: string = key;
   if (add) {
     conKey += add;
   }
-  prop[
-    prop.findIndex((item) => {
-      return item.key === conKey;
-    })
-  ].value = value;
+  const index = prop.findIndex((item) => {
+    return item.key === conKey;
+  });
+  prop[index] = { ...prop[index], value };
 };

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LocationModule } from 'src/app/shared/components/location/location.module';
 import { SearchModule } from 'src/app/shared/components/search/search.module';
