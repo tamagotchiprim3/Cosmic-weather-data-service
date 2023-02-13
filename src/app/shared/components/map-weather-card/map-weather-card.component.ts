@@ -1,8 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+import { writeMapCard } from 'src/app/store/current-weather/current-weather.actions';
+import { selectWeatherCards } from 'src/app/store/current-weather/current-weather.selectors';
 import { MAP_LAYERS } from '../../constants/map-layers.const';
+import { IWeatherCard } from '../../interfaces/weather.interface';
 
+@UntilDestroy()
 @Component({
   selector: 'app-map-weather-card',
   templateUrl: './map-weather-card.component.html',
@@ -14,7 +26,9 @@ export class MapWeatherCardComponent implements OnChanges {
 
   public map?: Map;
 
-  constructor() {}
+  constructor(private store: Store) {}
+
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -41,6 +55,13 @@ export class MapWeatherCardComponent implements OnChanges {
 
       const layersGroup = MAP_LAYERS;
       L.control.layers(layersGroup).addTo(this.map);
+      this.store.dispatch(
+        writeMapCard({
+          data: {
+            label: 'Map',
+          },
+        })
+      );
     }
   }
 }

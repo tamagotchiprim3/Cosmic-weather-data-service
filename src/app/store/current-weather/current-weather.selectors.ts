@@ -41,10 +41,11 @@ export const selectWeatherDescription = createSelector(
 );
 
 export const getWeatherCards = (state: ICurrentState) => {
-  return state?.weatherCards;
+  return [state?.weatherCards, state.filteredCards];
 };
 
 export const selectWeatherCards = createSelector(
   currentWeatherStore,
   getWeatherCards
 );
+

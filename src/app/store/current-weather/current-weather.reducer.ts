@@ -17,11 +17,13 @@ import {
 import { clearEmptyCards } from 'src/app/shared/utils/clear-empty-cards';
 import { writeValueInCard } from 'src/app/shared/utils/write-value-in-card';
 import {
+  filterCards,
   geocodingByCitySuccessed,
   geocodingByZipSuccessed,
   getAirPollutionSuccessed,
   getCurrentWeatherSuccessed,
   writeCurrentPosition,
+  writeMapCard,
 } from './current-weather.actions';
 
 export interface ICurrentState {
@@ -32,6 +34,7 @@ export interface ICurrentState {
   weatherDescription: string;
   location: ILocation;
   weatherCards: IWeatherCard[];
+  filteredCards: IWeatherCard[];
 }
 
 const initialState: ICurrentState = {
@@ -42,6 +45,7 @@ const initialState: ICurrentState = {
   weatherDescription: null,
   location: null,
   weatherCards: null,
+  filteredCards: null,
 };
 
 export const currentWeatherReducer = createReducer(
@@ -103,8 +107,6 @@ export const currentWeatherReducer = createReducer(
     };
     return {
       ...state,
-      latitude: data.coord.lat,
-      longitude: data.coord.lon,
       weatherDescription: data.weather[0].main,
       location: {
         name: data.name,
@@ -112,7 +114,10 @@ export const currentWeatherReducer = createReducer(
         latitude: data.coord.lat,
         longitude: data.coord.lon,
       },
-      weatherCards: clearEmptyCards(weatherCardsTemp),
+      weatherCards: [
+        ...state.weatherCards,
+        ...clearEmptyCards(weatherCardsTemp),
+      ],
     };
   }),
 
@@ -146,5 +151,53 @@ export const currentWeatherReducer = createReducer(
       longitude: data.lon,
       latitude: data.lat,
     };
+  }),
+  on(filterCards, (state, { data }) => {
+    const weatherCards: IWeatherCard[] = [...state.weatherCards];
+    const newValues: IWeatherCard[] = [...data];
+    if (state.filteredCards && newValues.length < state.filteredCards.length) {
+      newValues.forEach((item) => {
+        if (state.filteredCards.find((element) => element.label !== item)) {
+          weatherCards.push(item);
+        }
+      });
+      console.log(weatherCards);
+    } else {
+      newValues.forEach((item) => {
+        if (weatherCards.find((element) => element.label === item.label)) {
+          weatherCards.splice(
+            weatherCards.findIndex((element) => element.label === item.label),
+            1
+          );
+        }
+      });
+    }
+    return {
+      ...state,
+      weatherCards: weatherCards,
+      filteredCards: newValues,
+    };
+  }),
+  on(writeMapCard, (state, { data }) => {
+    if (state.weatherCards) {
+      const weatherCards: IWeatherCard[] = [...state.weatherCards];
+      if (
+        weatherCards.find((item) => item.label !== 'Map') &&
+        state.filteredCards.find((item) => item.label !== 'Map')
+      ) {
+        weatherCards.push(data);
+      }
+      return {
+        ...state,
+        weatherCards: weatherCards,
+      };
+    } else {
+      const weatherCards: IWeatherCard[] = [];
+      weatherCards.push(data);
+      return {
+        ...state,
+        weatherCards: weatherCards,
+      };
+    }
   })
 );

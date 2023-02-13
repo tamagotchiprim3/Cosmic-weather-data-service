@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
         this.store.dispatch(
           writeCurrentPosition({ data: this.currentPosition })
         );
-        console.log(this.currentPosition);
       },
       () => {
         this.currentPosition = null;

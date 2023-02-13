@@ -26,6 +26,7 @@ export class WeatherInfoComponent implements OnInit {
   public airPollution: IWeatherCard;
   public lat: number;
   public lon: number;
+  public mapVisibility: boolean = true;
 
   constructor(private store: Store, private cdR: ChangeDetectorRef) {}
 
@@ -34,18 +35,45 @@ export class WeatherInfoComponent implements OnInit {
       .select(selectWeatherCards)
       .pipe(untilDestroyed(this))
       .subscribe((weather) => {
+        this.currentWeather = [];
+        this.airPollution = null;
         if (weather) {
-          const weatherCards = cloneDeep(weather);
-          let airCard: IWeatherCard = weatherCards.find((card) => {
-            return card.label === 'Air pollution';
-          });
-          this.airPollution = airCard;
-          weatherCards.splice(
-            weatherCards.findIndex((card) => {
-              return card === airCard;
-            })
-          );
-          this.currentWeather = weatherCards;
+          const weatherCards: IWeatherCard[] = cloneDeep(weather[0]);
+          const filteredCards: IWeatherCard[] = cloneDeep(weather[1]);
+          if (filteredCards && filteredCards.length > 0) {
+            this.mapVisibility = filteredCards.find(
+              (item) => item.label === 'Map'
+            )
+              ? true
+              : false;
+            filteredCards.forEach((element) => {
+              if (element.label === 'Air pollution') {
+                this.airPollution = element;
+              }
+              if (
+                element.label !== 'Map' &&
+                element.label !== 'Air pollution'
+              ) {
+                this.currentWeather.push(element);
+              }
+            });
+          } else {
+            this.mapVisibility = true;
+            if (weatherCards) {
+              weatherCards.forEach((element) => {
+                if (element.label === 'Air.pollution') {
+                  this.airPollution = element;
+                }
+                if (
+                  element.label !== 'Map' &&
+                  element.label !== 'Air pollution'
+                ) {
+                  this.currentWeather.push(element);
+                }
+              });
+            }
+          }
+
           this.cdR.markForCheck();
         }
       });

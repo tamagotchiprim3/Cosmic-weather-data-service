@@ -7,6 +7,7 @@ import {
   IAirPollutionResponse,
   IGetCurrentWeather,
   IGetCurrentWeatherResponse,
+  IWeatherCard,
 } from 'src/app/shared/interfaces/weather.interface';
 
 export const geocodingByCity = createAction(
@@ -53,3 +54,13 @@ export const writeCurrentPosition = createAction(
   '[Current weather] write current position',
   props<{ data: IGetCurrentWeather }>()
 );
+
+export const filterCards = createAction(
+  '[Current weather] filter cards',
+  props<{data : IWeatherCard[]}>()
+)
+
+export const writeMapCard = createAction(
+  '[Current weather] write map card',
+  props<{data: IWeatherCard}>()
+)

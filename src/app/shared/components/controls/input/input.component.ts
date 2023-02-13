@@ -1,11 +1,5 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  NgControl,
-  ValidatorFn,
-} from '@angular/forms';
+import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -40,8 +34,8 @@ export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    this.value = value;
     this.control.setValue(value);
+    this.value = value;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

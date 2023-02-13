@@ -2,23 +2,26 @@
   <mat-label class="input-label">{{ label }}</mat-label>
   <mat-chip-grid #chipGrid>
     <mat-chip-row
-      *ngFor="let card of selectedCards; let i = index"
-      (removed)="remove(i)"
+      *ngFor="let card of control.value; let i = index"
+      (removed)="remove(card)"
     >
       {{ card.label }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
     </mat-chip-row>
+    <input
+      [formControl]="inputControl"
+      matInput
+      [matAutocomplete]="auto"
+      [placeholder]="placeholder"
+      class="number-inputs"
+      [matChipInputFor]="chipGrid"
+      (matChipInputTokenEnd)="clearInputView($event)"
+    />
   </mat-chip-grid>
-  <input
-    matInput
-    #cardInput
-    [formControl]="control"
-    [matChipInputFor]="chipGrid"
-    [matAutocomplete]="auto"
-    [placeholder]="placeholder"
-    class="number-inputs"
-  />
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let card of nodes" [value]="card.label">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let card of filteredOptions" [value]="card">
       {{ card.label }}
     </mat-option>
   </mat-autocomplete>

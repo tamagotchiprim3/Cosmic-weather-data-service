@@ -1,12 +1,14 @@
 import {
   Component,
   DoCheck,
-  ElementRef,
   Input,
+  OnChanges,
   OnInit,
-  ViewChild,
+  SimpleChanges,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { Store } from '@ngrx/store';
 import { IWeatherCard } from 'src/app/shared/interfaces/weather.interface';
 
@@ -16,16 +18,16 @@ import { IWeatherCard } from 'src/app/shared/interfaces/weather.interface';
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent
-  implements OnInit, DoCheck, ControlValueAccessor
+  implements OnInit, DoCheck, ControlValueAccessor, OnChanges
 {
-  @ViewChild('cardInput') cardInput: ElementRef<HTMLInputElement>;
   @Input() public label: string;
   @Input() public placeholder: string;
   @Input() public width: string = '250px';
   @Input() public nodes: IWeatherCard[];
 
   public control = new FormControl();
-  public selectedCards: IWeatherCard[];
+  public inputControl = new FormControl();
+  public filteredOptions: IWeatherCard[] = [];
   public value: IWeatherCard[];
   public onChange: (value: IWeatherCard[]) => void;
   public onTouched: () => void;
@@ -37,6 +39,18 @@ export class SearchInputComponent
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['nodes'] && changes['nodes'].currentValue) {
+      this.filteredOptions = this.nodes;
+    }
+  }
+
+  ngOnInit(): void {
+    this.control.valueChanges.subscribe((value: IWeatherCard[]) => {
+      this.onChange(value);
+    });
+  }
+
   ngDoCheck(): void {
     if (this.ngControl.control.errors !== this.control.errors) {
       this.initErrors();
@@ -44,6 +58,7 @@ export class SearchInputComponent
   }
 
   writeValue(value: IWeatherCard[]): void {
+    this.control.setValue(value);
     this.value = value;
   }
   registerOnChange(fn: any): void {
@@ -53,35 +68,31 @@ export class SearchInputComponent
     this.onTouched = fn;
   }
 
-  ngOnInit(): void {
-    this.control.setValue(this.ngControl.control.value);
-    this.control.valueChanges.subscribe((value: IWeatherCard[]) => {
-      this.selectedCards = { ...value };
-      this.onChange(value);
-    });
-  }
-
   public initErrors(): void {
     this.control.setErrors(this.ngControl.control.errors);
   }
 
-  public remove(index: number): void {
-    this.selectedCards.splice(index, 1);
+  public remove(card: IWeatherCard): void {
+    this.control.setValue([
+      ...this.control.value.filter((value: any) => value !== card),
+    ]);
+    this.filteredOptions.unshift(card);
+    console.log('this.filteredOptions pushed', this.filteredOptions);
   }
 
-  // public add(event: MatChipInputEvent): void {
-  //   const value: IWeatherCard[] = event.value;
+  public selected(event: MatAutocompleteSelectedEvent) {
+    this.control.setValue([...this.control.value, event.option.value]);
+    this.filteredOptions = this.filterNodes(event.option.value);
+    this.inputControl.reset('');
+  }
 
-  //   if (value) {
-  //     this.selectedCards.push(value);
-  //   }
-  //   event.chipInput!.clear();
-  //   this.control.setValue(null);
-  // }
+  public filterNodes(value: IWeatherCard): IWeatherCard[] {
+    return this.filteredOptions.filter((card: IWeatherCard) => {
+      return card.label !== value.label;
+    });
+  }
 
-  // public selected(event: MatAutocompleteSelectedEvent) {
-  //   this.selectedCards.push(event.option.viewValue);
-  //   this.cardInput.nativeElement.value = '';
-  //   this.control.setValue('');
-  // }
+  public clearInputView(event: MatChipInputEvent) {
+    event.chipInput?.clear();
+  }
 }
