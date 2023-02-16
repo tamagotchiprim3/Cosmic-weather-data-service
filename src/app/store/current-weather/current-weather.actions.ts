@@ -55,12 +55,12 @@ export const writeCurrentPosition = createAction(
   props<{ data: IGetCurrentWeather }>()
 );
 
-export const filterCards = createAction(
+export const filteredCards = createAction(
   '[Current weather] filter cards',
-  props<{data : IWeatherCard[]}>()
-)
+  props<{ data: IWeatherCard[] }>()
+);
 
 export const writeMapCard = createAction(
   '[Current weather] write map card',
-  props<{data: IWeatherCard}>()
-)
+  props<{ data: IWeatherCard }>()
+);

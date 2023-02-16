@@ -1,18 +1,10 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
 import { writeMapCard } from 'src/app/store/current-weather/current-weather.actions';
-import { selectWeatherCards } from 'src/app/store/current-weather/current-weather.selectors';
 import { MAP_LAYERS } from '../../constants/map-layers.const';
-import { IWeatherCard } from '../../interfaces/weather.interface';
 
 @UntilDestroy()
 @Component({
@@ -28,8 +20,6 @@ export class MapWeatherCardComponent implements OnChanges {
 
   constructor(private store: Store) {}
 
-
-
   ngOnChanges(changes: SimpleChanges): void {
     if (
       changes['lat'] &&
@@ -37,6 +27,7 @@ export class MapWeatherCardComponent implements OnChanges {
       changes['lon'] &&
       changes['lon'].currentValue
     ) {
+      console.log('onChanges works');
       if (this.map) {
         this.map.off();
         this.map.remove();

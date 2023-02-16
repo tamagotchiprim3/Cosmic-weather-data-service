@@ -79,6 +79,7 @@ export class WeatherInfoComponent implements OnInit {
       });
 
     this.store.select(selectLatitude).subscribe((lat: number) => {
+      console.log('lat: ', lat);
       this.lat = lat;
       this.cdR.markForCheck();
     });

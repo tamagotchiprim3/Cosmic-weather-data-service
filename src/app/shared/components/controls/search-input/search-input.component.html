@@ -17,11 +17,12 @@
       [placeholder]="placeholder"
       class="number-inputs"
       [matChipInputFor]="chipGrid"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="clearInputView($event)"
     />
   </mat-chip-grid>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let card of filteredOptions" [value]="card">
+    <mat-option *ngFor="let card of filteredOptions$ | async" [value]="card">
       {{ card.label }}
     </mat-option>
   </mat-autocomplete>

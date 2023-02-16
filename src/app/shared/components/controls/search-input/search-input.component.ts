@@ -1,54 +1,56 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   Component,
   DoCheck,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Store } from '@ngrx/store';
+import { map, Observable, startWith } from 'rxjs';
 import { IWeatherCard } from 'src/app/shared/interfaces/weather.interface';
-
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent
-  implements OnInit, DoCheck, ControlValueAccessor, OnChanges
+  implements DoCheck, ControlValueAccessor, OnChanges
 {
   @Input() public label: string;
   @Input() public placeholder: string;
   @Input() public width: string = '250px';
   @Input() public nodes: IWeatherCard[];
 
+  public separatorKeysCodes: number[] = [ENTER, COMMA];
   public control = new FormControl();
   public inputControl = new FormControl();
-  public filteredOptions: IWeatherCard[] = [];
+  public filteredOptions$: Observable<IWeatherCard[]>;
   public value: IWeatherCard[];
   public onChange: (value: IWeatherCard[]) => void;
   public onTouched: () => void;
 
-  constructor(private ngControl: NgControl, private store: Store) {
+  constructor(private ngControl: NgControl) {
     ngControl.valueAccessor = this;
     if (ngControl.control) {
       this.control.setParent(ngControl.control.parent);
     }
   }
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['nodes'] && changes['nodes'].currentValue) {
-      this.filteredOptions = this.nodes;
+    if (changes['nodes']?.currentValue?.length) {
+      const control = this.inputControl;
+      this.filteredOptions$ = control.valueChanges.pipe(
+        startWith(''),
+        map((value: IWeatherCard) =>
+          typeof value === 'string' ? value : value ? value.label : ''
+        ),
+        map((value: string) =>
+          value ? this.filter(value.toLowerCase()) : this.nodes.slice()
+        )
+      );
     }
-  }
-
-  ngOnInit(): void {
-    this.control.valueChanges.subscribe((value: IWeatherCard[]) => {
-      this.onChange(value);
-    });
   }
 
   ngDoCheck(): void {
@@ -74,22 +76,26 @@ export class SearchInputComponent
 
   public remove(card: IWeatherCard): void {
     this.control.setValue([
-      ...this.control.value.filter((value: any) => value !== card),
+      ...this.control.value.filter((val: IWeatherCard) => val.key !== card.key),
     ]);
-    this.filteredOptions.unshift(card);
-    console.log('this.filteredOptions pushed', this.filteredOptions);
+    this.control.markAsTouched();
+    this.onChange(this.control.value);
   }
 
   public selected(event: MatAutocompleteSelectedEvent) {
-    this.control.setValue([...this.control.value, event.option.value]);
-    this.filteredOptions = this.filterNodes(event.option.value);
+    const values = this.control.value.map((val: IWeatherCard) => val.label);
+    if (!values.includes(event.option.viewValue)) {
+      this.control.setValue([...this.control.value, event.option.value]);
+    }
+
     this.inputControl.reset('');
+    this.onChange(this.control.value);
   }
 
-  public filterNodes(value: IWeatherCard): IWeatherCard[] {
-    return this.filteredOptions.filter((card: IWeatherCard) => {
-      return card.label !== value.label;
-    });
+  private filter(filterValue: string): any[] {
+    return this.nodes.filter((option: IWeatherCard) =>
+      option.label.toLowerCase().includes(filterValue)
+    );
   }
 
   public clearInputView(event: MatChipInputEvent) {

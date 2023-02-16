@@ -17,7 +17,7 @@ import {
 import { clearEmptyCards } from 'src/app/shared/utils/clear-empty-cards';
 import { writeValueInCard } from 'src/app/shared/utils/write-value-in-card';
 import {
-  filterCards,
+  filteredCards,
   geocodingByCitySuccessed,
   geocodingByZipSuccessed,
   getAirPollutionSuccessed,
@@ -108,6 +108,8 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       weatherDescription: data.weather[0].main,
+      latitude: data.coord.lat,
+      longitude: data.coord.lon,
       location: {
         name: data.name,
         timezone: '+' + data.timezone / 3600 + ' UTC',
@@ -115,7 +117,7 @@ export const currentWeatherReducer = createReducer(
         longitude: data.coord.lon,
       },
       weatherCards: [
-        ...state.weatherCards,
+        state?.weatherCards?.find((item) => item.label === 'Map'),
         ...clearEmptyCards(weatherCardsTemp),
       ],
     };
@@ -152,52 +154,26 @@ export const currentWeatherReducer = createReducer(
       latitude: data.lat,
     };
   }),
-  on(filterCards, (state, { data }) => {
+  on(filteredCards, (state, { data }) => {
     const weatherCards: IWeatherCard[] = [...state.weatherCards];
     const newValues: IWeatherCard[] = [...data];
-    if (state.filteredCards && newValues.length < state.filteredCards.length) {
-      newValues.forEach((item) => {
-        if (state.filteredCards.find((element) => element.label !== item)) {
-          weatherCards.push(item);
-        }
-      });
-      console.log(weatherCards);
-    } else {
-      newValues.forEach((item) => {
-        if (weatherCards.find((element) => element.label === item.label)) {
-          weatherCards.splice(
-            weatherCards.findIndex((element) => element.label === item.label),
-            1
-          );
-        }
-      });
-    }
     return {
       ...state,
-      weatherCards: weatherCards,
       filteredCards: newValues,
     };
   }),
   on(writeMapCard, (state, { data }) => {
-    if (state.weatherCards) {
-      const weatherCards: IWeatherCard[] = [...state.weatherCards];
-      if (
-        weatherCards.find((item) => item.label !== 'Map') &&
-        state.filteredCards.find((item) => item.label !== 'Map')
-      ) {
-        weatherCards.push(data);
-      }
-      return {
-        ...state,
-        weatherCards: weatherCards,
-      };
-    } else {
-      const weatherCards: IWeatherCard[] = [];
-      weatherCards.push(data);
-      return {
-        ...state,
-        weatherCards: weatherCards,
-      };
+    let weatherCards: IWeatherCard[] = state.weatherCards || [];
+    if (
+      !state.weatherCards ||
+      !state.weatherCards.find((item) => item.label === data.label)
+    ) {
+      weatherCards = [...weatherCards, data];
     }
+
+    return {
+      ...state,
+      weatherCards: weatherCards,
+    };
   })
 );
