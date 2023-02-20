@@ -2,11 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Weather } from './shared/enum/weather-conditions.enum';
 import { IGetCurrentWeather } from './shared/interfaces/weather.interface';
-import { writeCurrentPosition } from './store/current-weather/current-weather.actions';
-import { selectWeatherDescription } from './store/current-weather/current-weather.selectors';
-
+import { writeCurrentPosition } from './store/weather/current-weather.actions';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -18,7 +15,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  public weatherPicture: string;
   public currentPosition: IGetCurrentWeather | null;
 
   constructor(private store: Store) {}
@@ -38,11 +34,5 @@ export class AppComponent implements OnInit {
         this.currentPosition = null;
       }
     );
-
-    this.store.select(selectWeatherDescription).subscribe((description) => {
-      if (description !== null) {
-        this.weatherPicture = Weather[description as keyof typeof Weather];
-      }
-    });
   }
 }

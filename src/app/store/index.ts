@@ -1,9 +1,9 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { CurrentWeatherEffect } from './current-weather/current-weather.effects';
+import { CurrentWeatherEffect } from './weather/current-weather.effects';
 import {
   currentWeatherReducer,
   ICurrentState,
-} from './current-weather/current-weather.reducer';
+} from './weather/current-weather.reducer';
 
 export interface ICoreState {
   currentWeather: ICurrentState;

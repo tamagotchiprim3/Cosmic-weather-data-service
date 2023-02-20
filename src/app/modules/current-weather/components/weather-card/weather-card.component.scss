@@ -1,0 +1,23 @@
+.card-wrapper {
+  display: grid;
+  grid-template-rows: 75px 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 250px;
+  width: 350px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  color: white;
+  box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.card-value {
+  font-size: 90px;
+}
+
+.card-label {
+  font-size: 25px;
+  padding: 0px 15px;
+  text-align: center;
+  line-height: 1.1;
+}
