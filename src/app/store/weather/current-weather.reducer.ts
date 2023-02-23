@@ -11,8 +11,10 @@ import {
 import {
   IAirPollutionResponse,
   IGetCurrentWeatherResponse,
+  IHourForecast,
   ILocation,
   IWeatherCard,
+  IWeatherDesc,
 } from 'src/app/shared/interfaces/weather.interface';
 import { clearEmptyCards } from 'src/app/shared/utils/clear-empty-cards';
 import { writeValueInCard } from 'src/app/shared/utils/write-value-in-card';
@@ -22,6 +24,7 @@ import {
   geocodingByZipSuccessed,
   getAirPollutionSuccessed,
   getCurrentWeatherSuccessed,
+  getHourlyForecastSuccessed,
   writeCurrentPosition,
   writeMapCard,
 } from './current-weather.actions';
@@ -31,8 +34,9 @@ export interface ICurrentState {
   locationByZip: IGeocodingByZipResponse;
   latitude: number;
   longitude: number;
-  weatherDescription: string;
+  weatherDescription: IWeatherDesc;
   location: ILocation;
+  hourlyForecast: IHourForecast[];
   weatherCards: IWeatherCard[];
   filteredCards: IWeatherCard[];
 }
@@ -44,6 +48,7 @@ const initialState: ICurrentState = {
   longitude: null,
   weatherDescription: null,
   location: null,
+  hourlyForecast: null,
   weatherCards: null,
   filteredCards: null,
 };
@@ -107,7 +112,7 @@ export const currentWeatherReducer = createReducer(
     };
     return {
       ...state,
-      weatherDescription: data.weather[0].main,
+      weatherDescription: data.weather[0],
       latitude: data.coord.lat,
       longitude: data.coord.lon,
       location: {
@@ -174,6 +179,12 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       weatherCards: weatherCards,
+    };
+  }),
+  on(getHourlyForecastSuccessed, (state, { data }) => {
+    return {
+      ...state,
+      hourlyForecast: data.list,
     };
   })
 );

@@ -12,6 +12,8 @@ import {
   getAirPollutionSuccessed,
   getCurrentWeather,
   getCurrentWeatherSuccessed,
+  getHourlyForecast,
+  getHourlyForecastSuccessed,
 } from './current-weather.actions';
 
 @Injectable()
@@ -85,7 +87,29 @@ export class CurrentWeatherEffect {
         this.weatherService
           .getCurrentAirPollution(action.data.lat, action.data.lon)
           .pipe(
-            map((data) => getAirPollutionSuccessed({ data: data })),
+            switchMap((data) => [
+              getAirPollutionSuccessed({ data: data }),
+              getHourlyForecast({
+                data: {
+                  lat: action.data.lat,
+                  lon: action.data.lon,
+                },
+              }),
+            ]),
+            catchError(() => EMPTY)
+          )
+      )
+    );
+  });
+
+  public getHourlyForecastEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getHourlyForecast),
+      mergeMap((action) =>
+        this.weatherService
+          .getHourlyForecast(action.data.lat, action.data.lon)
+          .pipe(
+            map((data) => getHourlyForecastSuccessed({ data: data })),
             catchError(() => EMPTY)
           )
       )

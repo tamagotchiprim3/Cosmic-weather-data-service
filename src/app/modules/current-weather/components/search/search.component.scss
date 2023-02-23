@@ -14,6 +14,28 @@
     .mat-form-field.mat-focused .mat-form-field-ripple {
       background-color: rgba(255, 255, 255, 1);
     }
+    .mat-mdc-form-field,
+    .mat-mdc-floating-label {
+      font-family: "Merriweather", sans-serif;
+    }
+    .mdc-floating-label {
+      font-family: "Merriweather", sans-serif;
+    }
+    .mdc-text-field--filled .mdc-line-ripple::after {
+      border-bottom-color: slategray;
+    }
+    .mdc-text-field--focused:not(.mdc-text-field--disabled)
+      .mdc-floating-label {
+      color: white;
+    }
+    .mat-mdc-standard-chip .mdc-evolution-chip__action--primary {
+      font: initial;
+      font-family: "Merriweather";
+    }
+    .mdc-list-item--selected .mdc-list-item__primary-text,
+    .mdc-list-item--activated .mdc-list-item__primary-text {
+      color: slategray;
+    }
   }
 }
 

@@ -22,7 +22,11 @@
     />
   </mat-chip-grid>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let card of filteredOptions$ | async" [value]="card">
+    <mat-option
+      *ngFor="let card of filteredOptions$ | async"
+      [value]="card"
+      class="mat-option"
+    >
       {{ card.label }}
     </mat-option>
   </mat-autocomplete>

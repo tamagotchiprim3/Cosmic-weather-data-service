@@ -48,3 +48,24 @@ export const selectWeatherCards = createSelector(
   currentWeatherStore,
   getWeatherCards
 );
+
+export const getHourlyForecast = (state: ICurrentState) => {
+  return state?.hourlyForecast;
+};
+
+export const selectHourlyForecast = createSelector(
+  currentWeatherStore,
+  getHourlyForecast
+);
+
+export const getCurrentTemperature = (state: ICurrentState) => {
+  return {
+    location: state?.location?.name,
+    icon: `../../../../../assets/weather-conditions/${state?.weatherDescription?.icon}.png`,
+    temp: state?.weatherCards?.find((item) => item.key === 'temp')?.value,
+  };
+};
+export const selectCurrentTemperature = createSelector(
+  currentWeatherStore,
+  getCurrentTemperature
+);

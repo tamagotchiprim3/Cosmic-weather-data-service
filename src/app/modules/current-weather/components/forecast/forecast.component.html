@@ -1,0 +1,16 @@
+<div>
+  <label class="forecast-label">Hourly forecast</label>
+</div>
+<div class="forecast-wrapper">
+  <div
+    *ngFor="let item of forecastList"
+    class="forecast-card"
+    (click)="openDialog(item)"
+  >
+    <div class="date-label">{{ item.dt_txt | date : "dd.MM HH:mm" }}</div>
+    <div>
+      <img [src]="item.weather[0].icon" class="weather-icon" />
+    </div>
+    <div class="temp-label">{{ item.main.temp }}°C</div>
+  </div>
+</div>

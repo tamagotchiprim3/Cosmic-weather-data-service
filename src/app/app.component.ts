@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { IGetCurrentWeather } from './shared/interfaces/weather.interface';
+import { IGetWeather } from './shared/interfaces/weather.interface';
 import { writeCurrentPosition } from './store/weather/current-weather.actions';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -15,7 +15,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  public currentPosition: IGetCurrentWeather | null;
+  public currentPosition: IGetWeather | null;
 
   constructor(private store: Store) {}
 

@@ -20,6 +20,20 @@
     .mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
       font-size: 24px;
     }
+    .mat-mdc-form-field,
+    .mat-mdc-floating-label {
+      font-family: "Merriweather", sans-serif;
+    }
+    .mdc-floating-label {
+      font-family: "Merriweather", sans-serif;
+    }
+    .mdc-text-field--filled .mdc-line-ripple::after {
+      border-bottom-color: slategray;
+    }
+    .mdc-text-field--focused:not(.mdc-text-field--disabled)
+      .mdc-floating-label {
+      color: white;
+    }
   }
 }
 

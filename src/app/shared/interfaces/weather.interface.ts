@@ -5,30 +5,16 @@ export interface IWeatherForm {
   zip: number;
 }
 
-export interface IGetCurrentWeather {
+export interface IGetWeather {
   lat: number;
   lon: number;
 }
 
 export interface IGetCurrentWeatherResponse {
-  coord: IGetCurrentWeather;
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
+  coord: IGetWeather;
+  weather: IWeatherDesc[];
   base: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-    sea_level: number;
-    grnd_level: number;
-  };
+  main: IMainData;
   visibility: number;
   wind: {
     speed: number;
@@ -94,4 +80,52 @@ export interface ILocation {
   timezone: string;
   latitude: number | string;
   longitude: number | string;
+}
+
+export interface IHourlyForecastResponse {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: IHourForecast[];
+}
+
+export interface IHourForecast {
+  dt: number;
+  main: IMainData;
+  weather: IWeatherDesc[];
+  clouds: {
+    all: number;
+  };
+  wind: {
+    speed: number;
+    deg: number;
+    gust: number;
+  };
+  visibility: number;
+  rain: {
+    '1h': number;
+    '3h'?: number;
+  };
+  sys: {
+    pod: string;
+  };
+  dt_txt: string;
+}
+
+export interface IMainData {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+  sea_level: number;
+  grnd_level: number;
+}
+
+export interface IWeatherDesc {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
 }

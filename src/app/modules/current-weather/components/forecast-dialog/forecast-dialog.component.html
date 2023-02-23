@@ -1,0 +1,33 @@
+<div class="dialog-wrapper">
+  <div class="dialog-temp">
+    <div class="dialog-temp-label">
+      {{ data.dt_txt | date : "dd.MM HH:mm" }}
+    </div>
+    <img [src]="data.weather[0].icon" class="dialog-icon" />
+    <div class="dialog-temp-block">{{ data.main.temp }}°C</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Feels like</div>
+    <div class="dialog-info-block">{{ data.main.feels_like }}°C</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Pressure</div>
+    <div class="dialog-info-block">{{ data.main.pressure }}hPa</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Humidity</div>
+    <div class="dialog-info-block">{{ data.main.humidity }}%</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Clouds</div>
+    <div class="dialog-info-block">{{ data.clouds.all }}%</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Wind speed</div>
+    <div class="dialog-info-block">{{ data.wind.speed }}m/s</div>
+  </div>
+  <div class="dialog-info">
+    <div class="dialog-info-label">Visibility</div>
+    <div class="dialog-info-block">{{ data.visibility }}km</div>
+  </div>
+</div>

@@ -5,62 +5,73 @@ import {
 } from 'src/app/shared/interfaces/geocoding.interface';
 import {
   IAirPollutionResponse,
-  IGetCurrentWeather,
   IGetCurrentWeatherResponse,
+  IGetWeather,
+  IHourlyForecastResponse,
   IWeatherCard,
 } from 'src/app/shared/interfaces/weather.interface';
 
 export const geocodingByCity = createAction(
-  '[Current weather] geocoding by city',
+  '[Weather] geocoding by city',
   props<{ data: string }>()
 );
 
 export const geocodingByCitySuccessed = createAction(
-  '[Current weather] geocoding by city successed',
+  '[Weather] geocoding by city successed',
   props<{ data: IGeocodingByCityResponse }>()
 );
 
 export const geocodingByZip = createAction(
-  '[Current weather] geocoding by zip',
+  '[Weather] geocoding by zip',
   props<{ data: number }>()
 );
 
 export const geocodingByZipSuccessed = createAction(
-  '[Current weather] geocoding by zip successed',
+  '[Weather] geocoding by zip successed',
   props<{ data: IGeocodingByZipResponse }>()
 );
 
 export const getCurrentWeather = createAction(
-  '[Current weather] get current weather',
-  props<{ data: IGetCurrentWeather }>()
+  '[Weather] get Weather',
+  props<{ data: IGetWeather }>()
 );
 
 export const getCurrentWeatherSuccessed = createAction(
-  '[Current weather] get current weather successed',
+  '[Weather] get Weather successed',
   props<{ data: IGetCurrentWeatherResponse }>()
 );
 
 export const getAirPollution = createAction(
-  '[Current weather] get air pollution',
-  props<{ data: IGetCurrentWeather }>()
+  '[Weather] get air pollution',
+  props<{ data: IGetWeather }>()
 );
 
 export const getAirPollutionSuccessed = createAction(
-  '[Current weather] get air pollution successed',
+  '[Weather] get air pollution successed',
   props<{ data: IAirPollutionResponse }>()
 );
 
 export const writeCurrentPosition = createAction(
-  '[Current weather] write current position',
-  props<{ data: IGetCurrentWeather }>()
+  '[Weather] write current position',
+  props<{ data: IGetWeather }>()
 );
 
 export const filteredCards = createAction(
-  '[Current weather] filter cards',
+  '[Weather] filter cards',
   props<{ data: IWeatherCard[] }>()
 );
 
 export const writeMapCard = createAction(
-  '[Current weather] write map card',
+  '[Weather] write map card',
   props<{ data: IWeatherCard }>()
+);
+
+export const getHourlyForecast = createAction(
+  '[Weather] get hourly Forecast',
+  props<{ data: IGetWeather }>()
+);
+
+export const getHourlyForecastSuccessed = createAction(
+  '[Weather] get hourly Forecast successed',
+  props<{ data: IHourlyForecastResponse }>()
 );

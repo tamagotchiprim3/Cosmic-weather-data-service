@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-wrapper {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% repeat(3, 1fr);
+  color: white;
+}
+
+.dialog-temp {
+  grid-column: 1/3;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+  justify-items: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(112, 128, 144, 0.6);
+}
+.dialog-temp-label {
+  color: slategray;
+  font-size: 28px;
+}
+.dialog-temp-block {
+  font-size: 46px;
+  color: white;
+}
+
+.weather-icon {
+  width: 200px;
+}
+
+.dialog-info {
+  display: grid;
+  grid-template-rows: 30% 70%;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-info-label {
+  color: slategray;
+  font-size: 24px;
+}
+.dialog-info-block {
+  font-size: 36px;
+}
