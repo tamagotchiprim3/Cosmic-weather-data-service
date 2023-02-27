@@ -4,11 +4,15 @@
       {{ data.dt_txt | date : "dd.MM HH:mm" }}
     </div>
     <img [src]="data.weather[0].icon" class="dialog-icon" />
-    <div class="dialog-temp-block">{{ data.main.temp }}°C</div>
+    <div class="dialog-temp-block">
+      {{ data.main.temp | number : "1.0-0" }}°C
+    </div>
   </div>
   <div class="dialog-info">
     <div class="dialog-info-label">Feels like</div>
-    <div class="dialog-info-block">{{ data.main.feels_like }}°C</div>
+    <div class="dialog-info-block">
+      {{ data.main.feels_like | number : "1.0-0" }}°C
+    </div>
   </div>
   <div class="dialog-info">
     <div class="dialog-info-label">Pressure</div>

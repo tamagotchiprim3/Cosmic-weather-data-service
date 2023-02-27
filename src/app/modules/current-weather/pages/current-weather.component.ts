@@ -12,7 +12,9 @@ export class CurrentWeatherComponent {
   public dataTemp?: { location: string; temp: number; icon: string };
   constructor(private store: Store) {
     store.select(selectCurrentTemperature).subscribe((data) => {
-      this.dataTemp = cloneDeep(data);
+      if (data && data.icon && data.location && data.temp) {
+        this.dataTemp = cloneDeep(data);
+      }
     });
   }
 }

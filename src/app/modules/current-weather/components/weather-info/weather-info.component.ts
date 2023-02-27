@@ -22,6 +22,13 @@ import { IWeatherCard } from '../../../../shared/interfaces/weather.interface';
 })
 @UntilDestroy()
 export class WeatherInfoComponent implements OnInit {
+  public airQualityValues: string[] = [
+    'Good',
+    'Fair',
+    'Moderate',
+    'Poor',
+    'Very poor',
+  ];
   public currentWeather: IWeatherCard[];
   public airPollution: IWeatherCard;
   public lat: number;
@@ -48,7 +55,10 @@ export class WeatherInfoComponent implements OnInit {
               : false;
             filteredCards.forEach((element) => {
               if (element.label === 'Air pollution') {
-                this.airPollution = element;
+                this.airPollution = { ...element };
+                this.airPollution.value.index =
+                  this.airQualityValues[this.airPollution?.value?.index];
+                console.log('this.airPollution: ', this.airPollution);
               }
               if (
                 element.label !== 'Map' &&
@@ -61,8 +71,12 @@ export class WeatherInfoComponent implements OnInit {
             this.mapVisibility = true;
             if (weatherCards) {
               weatherCards.forEach((element) => {
-                if (element.label === 'Air.pollution') {
+                if (element.label === 'Air pollution') {
                   this.airPollution = element;
+                  this.airPollution.value.index =
+                    this.airQualityValues[this.airPollution?.value?.index];
+
+                  console.log('this.airPollution: ', this.airPollution);
                 }
                 if (
                   element.label !== 'Map' &&

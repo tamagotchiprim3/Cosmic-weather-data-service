@@ -11,6 +11,6 @@
     <div>
       <img [src]="item.weather[0].icon" class="weather-icon" />
     </div>
-    <div class="temp-label">{{ item.main.temp }}°C</div>
+    <div class="temp-label">{{ item.main.temp | number : "1.0-0" }}°C</div>
   </div>
 </div>

@@ -5,8 +5,10 @@
     </div>
     <img [src]="data.weather[0].icon" class="calendar-dialog-icon" />
     <div class="calendar-dialog-temp-block">
-      <span>{{ data?.temp?.day }}</span>
-      <span class="calendar-dialog-temp-night">/{{ data?.temp?.night }}°C</span>
+      <span>{{ data?.temp?.day | number : "1.0-0" }}</span>
+      <span class="calendar-dialog-temp-night"
+        >/{{ data?.temp?.night | number : "1.0-0" }}°C</span
+      >
     </div>
   </div>
   <div class="calendar-dialog-info">
