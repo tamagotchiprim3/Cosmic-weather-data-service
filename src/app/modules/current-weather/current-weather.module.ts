@@ -22,6 +22,8 @@ import { WeatherCardComponent } from './components/weather-card/weather-card.com
 import { WeatherInfoComponent } from './components/weather-info/weather-info.component';
 import { CurrentWeatherRoutingModule } from './current-weather-routing.module';
 import { CurrentWeatherComponent } from './pages/current-weather.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CalendarDialogComponent } from './components/calendar-dialog/calendar-dialog.component';
 @NgModule({
   declarations: [
     CurrentWeatherComponent,
@@ -34,6 +36,8 @@ import { CurrentWeatherComponent } from './pages/current-weather.component';
     AirWeatherCardComponent,
     ForecastComponent,
     ForecastDialogComponent,
+    CalendarComponent,
+    CalendarDialogComponent,
   ],
   imports: [
     CommonModule,

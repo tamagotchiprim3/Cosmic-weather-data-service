@@ -13,6 +13,7 @@ import {
   IGetCurrentWeatherResponse,
   IHourForecast,
   ILocation,
+  IMonthlyForecastResponse,
   IWeatherCard,
   IWeatherDesc,
 } from 'src/app/shared/interfaces/weather.interface';
@@ -25,6 +26,7 @@ import {
   getAirPollutionSuccessed,
   getCurrentWeatherSuccessed,
   getHourlyForecastSuccessed,
+  getMonthlyForecastSuccessed,
   writeCurrentPosition,
   writeMapCard,
 } from './current-weather.actions';
@@ -37,6 +39,7 @@ export interface ICurrentState {
   weatherDescription: IWeatherDesc;
   location: ILocation;
   hourlyForecast: IHourForecast[];
+  monthlyForecast: IMonthlyForecastResponse;
   weatherCards: IWeatherCard[];
   filteredCards: IWeatherCard[];
 }
@@ -49,6 +52,7 @@ const initialState: ICurrentState = {
   weatherDescription: null,
   location: null,
   hourlyForecast: null,
+  monthlyForecast: null,
   weatherCards: null,
   filteredCards: null,
 };
@@ -185,6 +189,18 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       hourlyForecast: data.list,
+    };
+  }),
+  on(getMonthlyForecastSuccessed, (state, { data }) => {
+    const calendarData = cloneDeep(data);
+    calendarData?.list.map((item) => {
+      item.dt_txt = new Date(item.dt * 1000);
+      item.sunrise_txt = new Date(item.sunrise * 1000);
+      item.sunset_txt = new Date(item.sunset * 1000);
+    });
+    return {
+      ...state,
+      monthlyForecast: calendarData,
     };
   })
 );

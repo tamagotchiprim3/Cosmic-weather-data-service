@@ -1,15 +1,22 @@
 <div class="weather-wrapper">
   <app-side-bar class="side-bar"></app-side-bar>
   <div class="weather-content">
-    <div *ngIf="dataTemp" class="weather-temp">
-      <div class="main-temp-label">
-        {{ dataTemp.location }}
+    <ng-container *ngIf="dataTemp">
+      <div class="weather-temp">
+        <div class="main-temp-label">
+          {{ dataTemp.location }}
+        </div>
+        <img
+          *ngIf="dataTemp && dataTemp.icon"
+          [src]="dataTemp.icon"
+          class="main-temp-icon"
+        />
+        <div class="main-temp">{{ dataTemp.temp }}°C</div>
       </div>
-      <img [src]="dataTemp.icon" class="main-temp-icon" />
-      <div class="main-temp">{{ dataTemp.temp }}°C</div>
-    </div>
+    </ng-container>
     <app-location class="location-component"></app-location>
     <app-forecast class="forecast-component"></app-forecast>
+    <app-calendar class="calendar-component"></app-calendar>
     <app-search class="search-component"></app-search>
     <app-weather-info class="weather-component"></app-weather-info>
   </div>

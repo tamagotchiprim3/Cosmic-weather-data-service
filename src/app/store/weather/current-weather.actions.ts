@@ -8,6 +8,7 @@ import {
   IGetCurrentWeatherResponse,
   IGetWeather,
   IHourlyForecastResponse,
+  IMonthlyForecastResponse,
   IWeatherCard,
 } from 'src/app/shared/interfaces/weather.interface';
 
@@ -74,4 +75,14 @@ export const getHourlyForecast = createAction(
 export const getHourlyForecastSuccessed = createAction(
   '[Weather] get hourly Forecast successed',
   props<{ data: IHourlyForecastResponse }>()
+);
+
+export const getMonthlyForecast = createAction(
+  '[Weather] get monthly forecast',
+  props<{ data: IGetWeather }>()
+);
+
+export const getMonthlyForecastSuccessed = createAction(
+  '[Weather] get monthly forecast successed',
+  props<{ data: IMonthlyForecastResponse }>()
 );

@@ -129,3 +129,55 @@ export interface IWeatherDesc {
   description: string;
   icon: string;
 }
+
+export interface IMonthlyForecastResponse {
+  cod: string;
+  city: {
+    id: number;
+    name: string;
+    coord: {
+      lon: number;
+      lat: number;
+    };
+    country: string;
+  };
+  message: string;
+  list?: ICalendarDay[];
+}
+
+export interface ICalendarDay {
+  dt: number;
+  dt_txt: Date;
+  sunrise_txt: Date;
+  sunset_txt: Date;
+  sunrise: number;
+  sunset: number;
+  temp: {
+    day: number;
+    min: number;
+    max: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  feels_like: {
+    day: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  pressure: number;
+  humidity: number;
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+  speed: number;
+  deg: number;
+  clouds: number;
+  rain: number;
+}

@@ -31,9 +31,5 @@ export class ForecastComponent implements OnInit {
     const dialogRef = this.dialog.open(ForecastDialogComponent, {
       data: item,
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
   }
 }

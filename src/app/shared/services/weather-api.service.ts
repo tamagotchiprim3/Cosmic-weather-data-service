@@ -5,6 +5,7 @@ import {
   IAirPollutionResponse,
   IGetCurrentWeatherResponse,
   IHourlyForecastResponse,
+  IMonthlyForecastResponse,
 } from '../interfaces/weather.interface';
 
 @Injectable({
@@ -16,6 +17,7 @@ export class WeatherApiService {
     airPollution: 'http://api.openweathermap.org/data/2.5/air_pollution',
     currentWeatherMap: 'http://maps.openweathermap.org/maps/2.0/weather',
     forecast: 'https://pro.openweathermap.org/data/2.5/forecast/hourly',
+    monthlyForecast: 'https://pro.openweathermap.org/data/2.5/forecast/climate',
   };
 
   constructor(private http: HttpClient) {}
@@ -58,5 +60,20 @@ export class WeatherApiService {
         units: 'metric',
       },
     });
+  }
+  public getMonthlyForecast(
+    lat: number,
+    lon: number
+  ): Observable<IMonthlyForecastResponse> {
+    return this.http.get<IMonthlyForecastResponse>(
+      this.endPoints.monthlyForecast,
+      {
+        params: {
+          lat: lat,
+          lon: lon,
+          units: 'metric',
+        },
+      }
+    );
   }
 }

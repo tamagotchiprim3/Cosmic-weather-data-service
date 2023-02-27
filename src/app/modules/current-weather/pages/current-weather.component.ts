@@ -9,7 +9,7 @@ import { selectCurrentTemperature } from 'src/app/store/weather/weather.selector
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrentWeatherComponent {
-  public dataTemp: { location: string; temp: number; icon: string };
+  public dataTemp?: { location: string; temp: number; icon: string };
   constructor(private store: Store) {
     store.select(selectCurrentTemperature).subscribe((data) => {
       this.dataTemp = cloneDeep(data);

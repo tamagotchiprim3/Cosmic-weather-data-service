@@ -17,6 +17,7 @@
   min-width: 175px;
   border-left: 1px solid rgba(112, 128, 144, 0.4);
   border-right: 1px solid rgba(112, 128, 144, 0.4);
+  transition: 0.3s;
 }
 .forecast-card > div {
   width: 100%;
@@ -41,4 +42,8 @@
 }
 .forecast-card:last-child {
   border-right: 0px;
+}
+
+.forecast-card:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
