@@ -15,6 +15,14 @@
   border-radius: 25px;
   color: white;
   box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  transition: all 0.5s;
+}
+
+.card-wrapper:hover {
+  transform: translate(-10px, -10px);
+  box-shadow: 15px 20px 10px 0px rgba(0, 0, 0, 75%);
+
+  transition: all 0.5s;
 }
 
 .card-value {

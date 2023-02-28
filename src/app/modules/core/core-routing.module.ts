@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WEATHER_PATH } from 'src/app/shared/constants/routing.const';
+import { CORE_PATH } from 'src/app/shared/constants/routing.const';
 import { CoreComponent } from './pages/core.component';
 
 const routes: Routes = [
@@ -9,7 +9,7 @@ const routes: Routes = [
     component: CoreComponent,
     children: [
       {
-        path: WEATHER_PATH.path,
+        path: CORE_PATH.path,
         loadChildren: () =>
           import('./../current-weather/current-weather.module').then(
             (m) => m.CurrentWeatherModule
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: WEATHER_PATH.path,
+    redirectTo: CORE_PATH.path,
   },
 ];
 
