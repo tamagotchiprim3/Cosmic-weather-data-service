@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IHourForecast } from 'src/app/shared/interfaces/weather.interface';
 
@@ -6,6 +6,7 @@ import { IHourForecast } from 'src/app/shared/interfaces/weather.interface';
   selector: 'app-forecast-dialog',
   templateUrl: './forecast-dialog.component.html',
   styleUrls: ['./forecast-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastDialogComponent {
   constructor(

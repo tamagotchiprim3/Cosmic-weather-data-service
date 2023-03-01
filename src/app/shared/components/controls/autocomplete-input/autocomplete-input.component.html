@@ -10,8 +10,11 @@
     class="autocomplete-inputs"
   />
   <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let option of options" [value]="option.value">
-      {{ option.label }}
+    <mat-option
+      *ngFor="let option of options; trackBy: trackByFn"
+      [value]="option.value"
+    >
+      {{ option.label | translate }}
     </mat-option>
   </mat-autocomplete>
 

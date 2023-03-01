@@ -1,8 +1,18 @@
 <div class="location-wrapper">
-  <span class="span-label"> <span>Location:</span> {{ location.name }}</span>
-  <span class="span-label"><span>Timezone:</span> {{ location.timezone }}</span>
-  <span class="span-label"><span>Latitude:</span> {{ location.latitude }}</span>
+  <span class="span-label">
+    <span>{{ "main.location.location" | translate }}: </span>
+    {{ location.name }}</span
+  >
   <span class="span-label"
-    ><span>Longitude: </span> {{ location.longitude }}</span
+    ><span>{{ "main.location.timezone" | translate }}: </span>
+    {{ location.timezone }}</span
+  >
+  <span class="span-label"
+    ><span>{{ "main.location.latitude" | translate }}: </span>
+    {{ location.latitude }}</span
+  >
+  <span class="span-label"
+    ><span>{{ "main.location.longitude" | translate }}: </span>
+    {{ location.longitude }}</span
   >
 </div>

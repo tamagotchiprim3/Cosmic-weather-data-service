@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
+import { DAYS_OF_THE_WEEK } from 'src/app/shared/constants/days-of-the-week.conts';
 import {
   ICalendarDay,
   IMonthlyForecastResponse,
@@ -13,19 +18,16 @@ import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.comp
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent {
   public calendarData?: IMonthlyForecastResponse;
-  public daysOfTheWeek: string[] = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
-  constructor(private store: Store, public dialog: MatDialog) {
+  public daysOfTheWeek: string[] = DAYS_OF_THE_WEEK;
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {
     store.select(selectMonthlyForecast).subscribe((data) => {
       this.calendarData = cloneDeep(data);
       this.calendarData?.list.map((item) => {
@@ -38,8 +40,8 @@ export class CalendarComponent {
       }
       for (let i = 1; i < dayIndex; i++) {
         this.calendarData.list.unshift(null);
-        console.log('this.calendarData: ', this.calendarData);
       }
+      this.cdr.markForCheck();
     });
   }
 
@@ -47,5 +49,8 @@ export class CalendarComponent {
     const dialogRef = this.dialog.open(CalendarDialogComponent, {
       data: item,
     });
+  }
+  public trackByFn(index: any, item: any): any {
+    return index;
   }
 }

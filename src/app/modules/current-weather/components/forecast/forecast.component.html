@@ -1,9 +1,11 @@
 <div>
-  <label class="forecast-label">Hourly forecast</label>
+  <label class="forecast-label">{{
+    "main.hourlyForecast.label" | translate
+  }}</label>
 </div>
 <div class="forecast-wrapper">
   <div
-    *ngFor="let item of forecastList"
+    *ngFor="let item of forecastList; trackBy: trackByFn"
     class="forecast-card"
     (click)="openDialog(item)"
   >

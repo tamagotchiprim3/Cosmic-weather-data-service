@@ -1,17 +1,26 @@
 <div class="card-wrapper">
-  <div class="card-label">Air pollution</div>
+  <div class="card-label">
+    {{ "main.weatherCards.airPollution.label" | translate }}
+  </div>
   <div class="card-index">
-    <span class="air-quality-label">Air Quality Index: </span>
-    <span>{{ data.value.index }}</span>
+    <span class="air-quality-label"
+      >{{ "main.weatherCards.airPollution.airQuality" | translate }}:
+    </span>
+    <span>{{ data.value.index | translate }}</span>
   </div>
   <div class="card-date">
-    <span class="date-label"> Date: </span>
+    <span class="date-label"
+      >{{ "main.weatherCards.airPollution.date" | translate }}:
+    </span>
     <span>
       {{ data.value.date | date : "hh:mm dd.MM.yyyy" }}
     </span>
   </div>
   <div class="card-components-wrapper">
-    <div *ngFor="let component of data.value.components" class="card-component">
+    <div
+      *ngFor="let component of data.value.components; trackBy: trackByFn"
+      class="card-component"
+    >
       <div class="component-label">{{ component.label }}</div>
       <div class="component-value">{{ component.value }}</div>
     </div>

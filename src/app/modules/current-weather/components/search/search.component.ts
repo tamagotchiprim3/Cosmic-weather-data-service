@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IWeatherCard } from 'src/app/shared/interfaces/weather.interface';
@@ -9,6 +9,7 @@ import { selectWeatherCards } from 'src/app/store/weather/weather.selectors';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
   public searchControl: FormControl = new FormControl([]);

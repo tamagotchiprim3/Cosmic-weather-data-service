@@ -6,6 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { SearchInputComponent } from './search-input.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SearchInputComponent } from './search-input.component';
     MatAutocompleteModule,
     MatChipsModule,
     MatFormFieldModule,
+    TranslateModule,
   ],
   exports: [SearchInputComponent],
 })

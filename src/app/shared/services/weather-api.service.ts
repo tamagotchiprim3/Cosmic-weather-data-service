@@ -24,7 +24,8 @@ export class WeatherApiService {
 
   public getCurrentWeather(
     lat: number,
-    lon: number
+    lon: number,
+    lang?: string
   ): Observable<IGetCurrentWeatherResponse> {
     return this.http.get<IGetCurrentWeatherResponse>(
       this.endPoints.currentWeather,
@@ -33,6 +34,7 @@ export class WeatherApiService {
           lat: lat,
           lon: lon,
           units: 'metric',
+          lang: lang,
         },
       }
     );
@@ -40,30 +42,35 @@ export class WeatherApiService {
 
   public getCurrentAirPollution(
     lat: number,
-    lon: number
+    lon: number,
+    lang?: string
   ): Observable<IAirPollutionResponse> {
     return this.http.get<IAirPollutionResponse>(this.endPoints.airPollution, {
       params: {
         lat: lat,
         lon: lon,
+        lang: lang,
       },
     });
   }
   public getHourlyForecast(
     lat: number,
-    lon: number
+    lon: number,
+    lang?: string
   ): Observable<IHourlyForecastResponse> {
     return this.http.get<IHourlyForecastResponse>(this.endPoints.forecast, {
       params: {
         lat: lat,
         lon: lon,
         units: 'metric',
+        lang: lang,
       },
     });
   }
   public getMonthlyForecast(
     lat: number,
-    lon: number
+    lon: number,
+    lang?: string
   ): Observable<IMonthlyForecastResponse> {
     return this.http.get<IMonthlyForecastResponse>(
       this.endPoints.monthlyForecast,
@@ -72,6 +79,7 @@ export class WeatherApiService {
           lat: lat,
           lon: lon,
           units: 'metric',
+          lang: lang,
         },
       }
     );

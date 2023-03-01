@@ -12,29 +12,41 @@
     </div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Wind speed</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.windSpeed" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">{{ data.speed }}m/s</div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Pressure</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.pressure" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">{{ data.pressure }}hPa</div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Humidity</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.humidity" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">{{ data.humidity }}%</div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Clouds</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.clouds" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">{{ data.clouds }}%</div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Sunrise</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.sunrise" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">
       {{ data.sunrise_txt | date : "HH:mm" }}
     </div>
   </div>
   <div class="calendar-dialog-info">
-    <div class="calendar-dialog-info-label">Sunset</div>
+    <div class="calendar-dialog-info-label">
+      {{ "main.monthlyForecast.dialog.sunset" | translate }}
+    </div>
     <div class="calendar-dialog-info-block">
       {{ data.sunset_txt | date : "HH:mm" }}
     </div>

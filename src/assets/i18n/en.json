@@ -1,7 +1,117 @@
 {
-  "header": {
-    "current": "Current weather",
-    "history": "History",
-    "forecasts": "Forecasts"
+  "sideBar": {
+    "select": {
+      "label": "Get weather by:",
+      "selectOpts": {
+        "coordinates": "coordinates",
+        "zip": "zip code",
+        "city": "city"
+      }
+    },
+    "inputs": {
+      "latitude": {
+        "label": "Latitude",
+        "placeholder": "Enter a latitude",
+        "error": "Please, enter a valid data"
+      },
+      "longitude": {
+        "label": "Longitude",
+        "placeholder": "Enter a longitude",
+        "error": "Please, enter a valid data"
+      },
+      "city": {
+        "label": "City",
+        "placeholder": "Enter a city",
+        "error": "Please, enter a valid data"
+      },
+      "zip": {
+        "label": "Zip code",
+        "placeholder": "Enter a zip code",
+        "error": "Please, enter a valid data"
+      }
+    }
+  },
+  "main": {
+    "location": {
+      "location": "Location",
+      "timezone": "Timezone",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "hourlyForecast": {
+      "label": "Hourly forecast",
+      "dialog": {
+        "feelsLike": "Feels like",
+        "pressure": "Pressure",
+        "humidity": "Humidity",
+        "clouds": "Clouds",
+        "windSpeed": "Wind speed",
+        "visibility": "Visibility"
+      }
+    },
+    "monthlyForecast": {
+      "label": "Monthly forecast",
+      "daysOfTheWeek": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      },
+      "dialog": {
+        "pressure": "Pressure",
+        "humidity": "Humidity",
+        "clouds": "Clouds",
+        "windSpeed": "Wind speed",
+        "sunrise": "Sunrise",
+        "sunset": "Sunset"
+      }
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "Enter a weather data",
+      "searchOpts": {
+        "map": "Map",
+        "airPollution": "Air pollution"
+      }
+    },
+    "weatherCards": {
+      "airPollution": {
+        "label": "Air pollution",
+        "airQuality": "Air quality index",
+        "date": "Date",
+        "airQualityValues": {
+          "good": "Good",
+          "fair": "Fair",
+          "moderate": "Moderate",
+          "poor": "Poor",
+          "veryPoor": "Very poor"
+        }
+      },
+      "map": {
+        "label": "Map"
+      },
+      "smallCards": {
+        "temperature": "Temperature(°С)",
+        "humanPerception": "Human perception of weather(°С)",
+        "atmoPressure": "Atmospheric pressure(hPa)",
+        "humidity": "Humidity(%)",
+        "minTemp": "Minimum temperature at the moment(°С)",
+        "maxTemp": "Maximum temperature at the moment(°С)",
+        "seaLevel": "Atmospheric pressure on the sea level(hPa)",
+        "grndLevel": "Atmospheric pressure on the ground level(hPa)",
+        "visibility": "Visibility(m)",
+        "windSpeed": "Wind speed (m/s)",
+        "windDeg": "Wind direction(degrees)",
+        "gust": "Wind gust(m/s)",
+        "cloud": "Cloudiness(%)",
+        "rainVolume1h": "Rain volume for the last 1 hour(mm)",
+        "rainVolume3h": "Rain volume for the last 3 hour(mm)",
+        "snowVolume1h": "Snow volume for the last 1 hour(mm)",
+        "snowVolume3h": "Snow volume for the last 3 hour(mm)"
+      }
+    }
   }
 }

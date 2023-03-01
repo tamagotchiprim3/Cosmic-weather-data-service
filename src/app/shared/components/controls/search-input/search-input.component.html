@@ -2,7 +2,7 @@
   <mat-label class="input-label">{{ label }}</mat-label>
   <mat-chip-grid #chipGrid>
     <mat-chip-row
-      *ngFor="let card of control.value; let i = index"
+      *ngFor="let card of control.value; trackBy: trackByFn; let i = index"
       (removed)="remove(card)"
     >
       {{ card.label }}
@@ -23,11 +23,11 @@
   </mat-chip-grid>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     <mat-option
-      *ngFor="let card of filteredOptions$ | async"
+      *ngFor="let card of filteredOptions$ | async; trackBy: trackByFn"
       [value]="card"
       class="mat-option"
     >
-      {{ card.label }}
+      {{ card.name | translate }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

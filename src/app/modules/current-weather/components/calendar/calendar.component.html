@@ -1,7 +1,14 @@
 <div class="calendar-wrapper">
-  <div class="calendar-label">Monthly forecast</div>
+  <div class="calendar-label">
+    {{ "main.monthlyForecast.label" | translate }}
+  </div>
   <div class="calendar-block">
-    <div *ngFor="let day of daysOfTheWeek" class="day-label">{{ day }}</div>
+    <div
+      *ngFor="let day of daysOfTheWeek; trackBy: trackByFn"
+      class="day-label"
+    >
+      {{ day | translate }}
+    </div>
     <div
       *ngFor="let item of calendarData?.list"
       class="calendar-day"

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CoreRoutingModule } from './core-routing.module';
@@ -20,6 +21,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreRoutingModule,
     MatIconModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

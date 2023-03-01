@@ -1,5 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
+  ChangeDetectionStrategy,
   Component,
   DoCheck,
   Input,
@@ -15,6 +16,7 @@ import { IWeatherCard } from 'src/app/shared/interfaces/weather.interface';
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchInputComponent
   implements DoCheck, ControlValueAccessor, OnChanges
@@ -100,5 +102,8 @@ export class SearchInputComponent
 
   public clearInputView(event: MatChipInputEvent) {
     event.chipInput?.clear();
+  }
+  public trackByFn(index: any, item: any): any {
+    return index;
   }
 }

@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import * as L from 'leaflet';
@@ -11,6 +17,7 @@ import { writeMapCard } from 'src/app/store/weather/current-weather.actions';
   selector: 'app-map-weather-card',
   templateUrl: './map-weather-card.component.html',
   styleUrls: ['./map-weather-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapWeatherCardComponent implements OnChanges {
   @Input() public lat: number;
@@ -27,7 +34,6 @@ export class MapWeatherCardComponent implements OnChanges {
       changes['lon'] &&
       changes['lon'].currentValue
     ) {
-      console.log('onChanges works');
       if (this.map) {
         this.map.off();
         this.map.remove();
@@ -50,6 +56,7 @@ export class MapWeatherCardComponent implements OnChanges {
         writeMapCard({
           data: {
             label: 'Map',
+            name: 'main.search.searchOpts.map',
           },
         })
       );

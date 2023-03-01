@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
@@ -10,11 +15,16 @@ import { ForecastDialogComponent } from '../forecast-dialog/forecast-dialog.comp
   selector: 'app-forecast',
   templateUrl: './forecast.component.html',
   styleUrls: ['./forecast.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastComponent implements OnInit {
   public forecastList?: IHourForecast[];
   public iconUrl?: string;
-  constructor(private store: Store, public dialog: MatDialog) {}
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {}
   ngOnInit(): void {
     this.store.select(selectHourlyForecast).subscribe((data) => {
       if (data) {
@@ -22,7 +32,7 @@ export class ForecastComponent implements OnInit {
           item.weather[0].icon = `../../../../../assets/weather-conditions/${item.weather[0].icon}.png`;
           return item;
         });
-        console.log('this.forecastList: ', this.forecastList);
+        this.cdr.markForCheck();
       }
     });
   }
@@ -31,5 +41,8 @@ export class ForecastComponent implements OnInit {
     const dialogRef = this.dialog.open(ForecastDialogComponent, {
       data: item,
     });
+  }
+  public trackByFn(index: any, item: any): any {
+    return index;
   }
 }

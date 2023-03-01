@@ -1,7 +1,11 @@
 :host {
   display: block;
   height: 100%;
-  width: 100%;
+  ::ng-deep {
+    .mat-mdc-progress-spinner {
+      --mdc-circular-progress-active-indicator-color: slategrey;
+    }
+  }
 }
 
 .search-component {
@@ -18,7 +22,7 @@
 
 .weather-wrapper {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px 1fr 50px;
   padding: 20px 15%;
   gap: 10px;
   min-height: 96vh;
@@ -93,4 +97,39 @@
   background: rgba(0, 0, 0, 0.2);
   padding: 25px;
   min-height: 800px;
+}
+
+.material-translate-icon {
+  position: fixed;
+  color: black;
+  -webkit-text-stroke-width: 0px;
+  border-style: hidden;
+  width: 50px;
+  height: 50px;
+  left: 5%;
+  top: 92%;
+  background-color: slategrey;
+  border-radius: 50%;
+  box-shadow: 2px 5px 5px 0px black;
+  transition: all 0.5s ease-out;
+}
+
+.material-translate-icon:hover {
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+.spinner-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.8);
+}
+.spinner {
+  color: slategray;
 }

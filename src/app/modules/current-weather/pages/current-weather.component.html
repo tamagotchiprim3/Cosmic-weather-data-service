@@ -1,3 +1,14 @@
+<div class="spinner-wrapper" *ngIf="spnrCount">
+  <mat-progress-spinner
+    [mode]="'indeterminate'"
+    [diameter]="500"
+    class="spinner"
+  ></mat-progress-spinner>
+</div>
+
+<button mat-button class="material-translate-icon" (click)="changeLanguage()">
+  <mat-icon>translate</mat-icon>
+</button>
 <div class="weather-wrapper">
   <app-side-bar class="side-bar"></app-side-bar>
   <div class="weather-content">

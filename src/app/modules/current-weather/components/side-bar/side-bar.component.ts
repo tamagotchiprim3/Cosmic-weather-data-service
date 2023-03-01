@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +12,7 @@ import {
 } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import {
   AUTOCOMPLETE_MAP_OPTIONS,
@@ -28,6 +34,7 @@ import {
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @UntilDestroy()
 export class SideBarComponent implements OnInit, OnDestroy {
@@ -39,7 +46,11 @@ export class SideBarComponent implements OnInit, OnDestroy {
   public latitude: number;
   public longitude: number;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private translate: TranslateService
+  ) {
     this.locationForm = this.fb.group({
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
@@ -72,15 +83,27 @@ export class SideBarComponent implements OnInit, OnDestroy {
         if (formValue.latitude && formValue.longitude) {
           this.store.dispatch(
             getCurrentWeather({
-              data: { lat: formValue.latitude, lon: formValue.longitude },
+              data: {
+                lat: formValue.latitude,
+                lon: formValue.longitude,
+                lang: this.translate.currentLang,
+              },
             })
           );
         }
         if (formValue.city) {
-          this.store.dispatch(geocodingByCity({ data: formValue.city }));
+          this.store.dispatch(
+            geocodingByCity({
+              data: { name: formValue.city, lang: this.translate.currentLang },
+            })
+          );
         }
         if (formValue.zip) {
-          this.store.dispatch(geocodingByZip({ data: formValue.zip }));
+          this.store.dispatch(
+            geocodingByZip({
+              data: { zip: formValue.zip, lang: this.translate.currentLang },
+            })
+          );
         }
       });
   }

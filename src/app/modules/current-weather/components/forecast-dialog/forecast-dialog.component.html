@@ -9,29 +9,41 @@
     </div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Feels like</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.feelsLike" | translate }}:
+    </div>
     <div class="dialog-info-block">
       {{ data.main.feels_like | number : "1.0-0" }}°C
     </div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Pressure</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.pressure" | translate }}:
+    </div>
     <div class="dialog-info-block">{{ data.main.pressure }}hPa</div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Humidity</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.humidity" | translate }}:
+    </div>
     <div class="dialog-info-block">{{ data.main.humidity }}%</div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Clouds</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.clouds" | translate }}:
+    </div>
     <div class="dialog-info-block">{{ data.clouds.all }}%</div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Wind speed</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.windSpeed" | translate }}:
+    </div>
     <div class="dialog-info-block">{{ data.wind.speed }}m/s</div>
   </div>
   <div class="dialog-info">
-    <div class="dialog-info-label">Visibility</div>
+    <div class="dialog-info-label">
+      {{ "main.hourlyForecast.dialog.visibility" | translate }}:
+    </div>
     <div class="dialog-info-block">{{ data.visibility }}km</div>
   </div>
 </div>

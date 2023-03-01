@@ -14,7 +14,7 @@ import {
 
 export const geocodingByCity = createAction(
   '[Weather] geocoding by city',
-  props<{ data: string }>()
+  props<{ data: { name: string; lang: string } }>()
 );
 
 export const geocodingByCitySuccessed = createAction(
@@ -24,7 +24,7 @@ export const geocodingByCitySuccessed = createAction(
 
 export const geocodingByZip = createAction(
   '[Weather] geocoding by zip',
-  props<{ data: number }>()
+  props<{ data: { zip: number; lang: string } }>()
 );
 
 export const geocodingByZipSuccessed = createAction(
@@ -85,4 +85,9 @@ export const getMonthlyForecast = createAction(
 export const getMonthlyForecastSuccessed = createAction(
   '[Weather] get monthly forecast successed',
   props<{ data: IMonthlyForecastResponse }>()
+);
+
+export const changeTheme = createAction(
+  '[Weather] change theme',
+  props<{ data: string }>()
 );

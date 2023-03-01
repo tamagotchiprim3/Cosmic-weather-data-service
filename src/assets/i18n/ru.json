@@ -1,7 +1,117 @@
 {
-  "header": {
-    "current": "Погода сейчас",
-    "history": "История",
-    "forecasts": "Прогноз"
+  "sideBar": {
+    "select": {
+      "label": "Узнать погоду по:",
+      "selectOpts": {
+        "coordinates": "Координаты",
+        "zip": "Индекс",
+        "city": "Город"
+      }
+    },
+    "inputs": {
+      "latitude": {
+        "label": "Широта",
+        "placeholder": "Введите широту",
+        "error": "Введите верные данные!"
+      },
+      "longitude": {
+        "label": "Долгота",
+        "placeholder": "Введите долготу",
+        "error": "Введите верные данные!"
+      },
+      "city": {
+        "label": "Город",
+        "placeholder": "Введите город ",
+        "error": "Введите верные данные"
+      },
+      "zip": {
+        "label": "Индекс",
+        "placeholder": "Введите индекс",
+        "error": "Введите верные данные"
+      }
+    }
+  },
+  "main": {
+    "location": {
+      "location": "Местонахождение",
+      "timezone": "Временная зона",
+      "latitude": "Широта",
+      "longitude": "Долгота"
+    },
+    "hourlyForecast": {
+      "label": "Почасовой прогноз",
+      "dialog": {
+        "feelsLike": "Ощущается как",
+        "pressure": "Давление",
+        "humidity": "Влажность",
+        "clouds": "Облачность",
+        "windSpeed": "Скорость ветра",
+        "visibility": "Видимость"
+      }
+    },
+    "monthlyForecast": {
+      "label": "Прогроз на месяц",
+      "daysOfTheWeek": {
+        "mon": "Пон",
+        "tue": "Вт",
+        "wed": "Ср",
+        "thu": "Чт",
+        "fri": "Пт",
+        "sat": "Сб",
+        "sun": "Вс"
+      },
+      "dialog": {
+        "pressure": "Давление",
+        "humidity": "Влажность",
+        "clouds": "Облачность",
+        "windSpeed": "Скорость ветра",
+        "sunrise": "Восход солнца",
+        "sunset": "Закат"
+      }
+    },
+    "search": {
+      "label": "Поиск",
+      "placeholder": "Введите данные о погоде",
+      "searchOpts": {
+        "map": "Карта",
+        "airPollution": "Загрязнение воздуха"
+      }
+    },
+    "weatherCards": {
+      "airPollution": {
+        "label": "Загрязнение воздуха",
+        "airQuality": "Индекс качества воздуха",
+        "date": "Дата",
+        "airQualityValues": {
+          "good": "Хороший",
+          "fair": "Средний",
+          "moderate": "Умеренный",
+          "poor": "Плохой",
+          "veryPoor": "Очень плохой"
+        }
+      },
+      "map": {
+        "label": "Карта"
+      },
+      "smallCards": {
+        "temperature": "Температура(°С)",
+        "humanPerception": "Ощущается как(°С)",
+        "atmoPressure": "Атмосферное давление (гПа)",
+        "humidity": "Влажность(%)",
+        "minTemp": "Минимальная температура(°С)",
+        "maxTemp": "Максимальная температура(°С)",
+        "seaLevel": "Атмосферное давление над уровнем моря(гПа)",
+        "grndLevel": "Атмосферное давление над уровнем земли(гПа)",
+        "visibility": "Видимость(м)",
+        "windSpeed": "Скорость ветра(м/с)",
+        "windDeg": "Направление ветра(гр.)",
+        "gust": "Порывы ветра(м/с)",
+        "cloud": "Облачность(%)",
+        "rainVolume1h": "Громкость дождя за последний час(мм)",
+        "rainVolume3h": "Громкость дождя за последние 3 часа(мм)",
+        "snowVolume1h": "Громкость снега за последний час(мм)",
+        "snowVolume3h": "Громкость снега за последние 3 часа(мм)"
+      }
+    }
   }
 }

@@ -1,11 +1,19 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DoCheck,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { IAutocompleteOption } from 'src/app/shared/constants/autocomplete-options.const';
 
 @Component({
   selector: 'app-autocomplete-input',
   templateUrl: './autocomplete-input.component.html',
   styleUrls: ['./autocomplete-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteInputComponent
   implements OnInit, ControlValueAccessor, DoCheck
@@ -21,7 +29,10 @@ export class AutocompleteInputComponent
   public onChange: (value: any) => void;
   public onTouched: () => void;
 
-  constructor(private ngControl: NgControl) {
+  constructor(
+    private ngControl: NgControl,
+    private translate: TranslateService
+  ) {
     ngControl.valueAccessor = this;
     if (ngControl.control) {
       this.control.setParent(ngControl.control.parent);
@@ -53,5 +64,9 @@ export class AutocompleteInputComponent
 
   public initErrors(): void {
     this.control.setErrors(this.ngControl.control.errors);
+  }
+
+  public trackByFn(index: any, item: any): any {
+    return index;
   }
 }

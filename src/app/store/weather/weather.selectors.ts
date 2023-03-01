@@ -76,3 +76,11 @@ export const selectMonthlyForecast = createSelector(
   currentWeatherStore,
   getMonthlyForecast
 );
+export const getCurrentTheme = (state: ICurrentState) => {
+  return state?.currentTheme;
+};
+
+export const selectCurrentTheme = createSelector(
+  currentWeatherStore,
+  getCurrentTheme
+);

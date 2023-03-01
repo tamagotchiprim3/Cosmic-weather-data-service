@@ -15,8 +15,12 @@
 </app-air-weather-card>
 
 <app-weather-card
-  *ngFor="let weatherProperty of currentWeather; let i = index"
+  *ngFor="
+    let weatherProperty of currentWeather;
+    let i = index;
+    trackBy: trackByFn
+  "
   class="card-wrapper"
-  [label]="weatherProperty.label"
+  [label]="weatherProperty.name"
   [value]="weatherProperty.value"
 ></app-weather-card>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TranslateService } from '@ngx-translate/core';
 import { catchError, EMPTY, map, mergeMap, switchMap } from 'rxjs';
 import { GeocodingApiService } from 'src/app/shared/services/geocoding-api.service';
 import { WeatherApiService } from 'src/app/shared/services/weather-api.service';
@@ -24,13 +25,14 @@ export class CurrentWeatherEffect {
     return this.actions$.pipe(
       ofType(geocodingByCity),
       mergeMap((action) =>
-        this.geocodingService.getCoordinatesByCity(action.data).pipe(
+        this.geocodingService.getCoordinatesByCity(action.data.name).pipe(
           switchMap((data) => [
             geocodingByCitySuccessed({ data: data[0] }),
             getCurrentWeather({
               data: {
                 lat: data[0].lat,
                 lon: data[0].lon,
+                lang: action.data.lang,
               },
             }),
           ]),
@@ -44,13 +46,14 @@ export class CurrentWeatherEffect {
     return this.actions$.pipe(
       ofType(geocodingByZip),
       mergeMap((action) =>
-        this.geocodingService.getCoordinatesByZip(action.data).pipe(
+        this.geocodingService.getCoordinatesByZip(action.data.zip).pipe(
           switchMap((data) => [
             geocodingByZipSuccessed({ data: data }),
             getCurrentWeather({
               data: {
                 lat: data.lat,
                 lon: data.lon,
+                lang: action.data.lang,
               },
             }),
           ]),
@@ -65,7 +68,7 @@ export class CurrentWeatherEffect {
       ofType(getCurrentWeather),
       mergeMap((action) =>
         this.weatherService
-          .getCurrentWeather(action.data.lat, action.data.lon)
+          .getCurrentWeather(action.data.lat, action.data.lon, action.data.lang)
           .pipe(
             switchMap((data) => [
               getCurrentWeatherSuccessed({ data: data }),
@@ -87,7 +90,11 @@ export class CurrentWeatherEffect {
       ofType(getAirPollution),
       mergeMap((action) =>
         this.weatherService
-          .getCurrentAirPollution(action.data.lat, action.data.lon)
+          .getCurrentAirPollution(
+            action.data.lat,
+            action.data.lon,
+            action.data.lang
+          )
           .pipe(
             switchMap((data) => [
               getAirPollutionSuccessed({ data: data }),
@@ -109,7 +116,7 @@ export class CurrentWeatherEffect {
       ofType(getHourlyForecast),
       mergeMap((action) =>
         this.weatherService
-          .getHourlyForecast(action.data.lat, action.data.lon)
+          .getHourlyForecast(action.data.lat, action.data.lon, action.data.lang)
           .pipe(
             switchMap((data) => [
               getHourlyForecastSuccessed({ data: data }),
@@ -130,7 +137,11 @@ export class CurrentWeatherEffect {
       ofType(getMonthlyForecast),
       mergeMap((action) =>
         this.weatherService
-          .getMonthlyForecast(action.data.lat, action.data.lon)
+          .getMonthlyForecast(
+            action.data.lat,
+            action.data.lon,
+            action.data.lang
+          )
           .pipe(
             map((data) => getMonthlyForecastSuccessed({ data: data })),
             catchError(() => EMPTY)
@@ -142,6 +153,7 @@ export class CurrentWeatherEffect {
   constructor(
     private actions$: Actions,
     private geocodingService: GeocodingApiService,
-    private weatherService: WeatherApiService
+    private weatherService: WeatherApiService,
+    private translate: TranslateService
   ) {}
 }

@@ -20,6 +20,7 @@ import {
 import { clearEmptyCards } from 'src/app/shared/utils/clear-empty-cards';
 import { writeValueInCard } from 'src/app/shared/utils/write-value-in-card';
 import {
+  changeTheme,
   filteredCards,
   geocodingByCitySuccessed,
   geocodingByZipSuccessed,
@@ -42,6 +43,7 @@ export interface ICurrentState {
   monthlyForecast: IMonthlyForecastResponse;
   weatherCards: IWeatherCard[];
   filteredCards: IWeatherCard[];
+  currentTheme: string;
 }
 
 const initialState: ICurrentState = {
@@ -55,6 +57,7 @@ const initialState: ICurrentState = {
   monthlyForecast: null,
   weatherCards: null,
   filteredCards: null,
+  currentTheme: null,
 };
 
 export const currentWeatherReducer = createReducer(
@@ -150,6 +153,7 @@ export const currentWeatherReducer = createReducer(
         date: airPollutionData.date,
         components: airCardTemplate,
       },
+      name: 'main.search.searchOpts.airPollution',
     });
     return {
       ...state,
@@ -201,6 +205,12 @@ export const currentWeatherReducer = createReducer(
     return {
       ...state,
       monthlyForecast: calendarData,
+    };
+  }),
+  on(changeTheme, (state, { data }) => {
+    return {
+      ...state,
+      isWhiteTheme: data,
     };
   })
 );

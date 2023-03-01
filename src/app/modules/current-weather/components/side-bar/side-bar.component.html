@@ -1,7 +1,6 @@
 <div class="side-bar-wrapper">
   <app-autocomplete-input
-    label="Get current weather by:"
-    placeholder="Pick one"
+    label="{{ 'sideBar.select.label' | translate }}"
     [formControl]="autocompleteControl"
     defaulfValue="coordinates"
     [options]="autocompleteOptions"
@@ -9,43 +8,43 @@
   <mat-divider></mat-divider>
   <form [formGroup]="locationForm" class="form-wrapper">
     <app-input
-      *ngIf="autocompleteControl.value === 'coordinates'"
+      *ngIf="autocompleteControl.value === 'Coordinates'"
       type="number"
       formControlName="latitude"
       [min]="-90"
       [max]="90"
-      label="Latitude"
-      placeholder="Enter a latitude"
-      errorMessage="Please enter a valid data"
+      label="{{ 'sideBar.inputs.latitude.label' | translate }}"
+      placeholder="{{ 'sideBar.inputs.latitude.placeholder' | translate }}"
+      errorMessage="{{ 'sideBar.inputs.latitude.error' | translate }}"
     ></app-input>
 
     <app-input
-      *ngIf="autocompleteControl.value === 'coordinates'"
+      *ngIf="autocompleteControl.value === 'Coordinates'"
       formControlName="longitude"
       type="number"
       [min]="-180"
       [max]="180"
-      label="Longitude"
-      placeholder="Enter a longitude"
-      errorMessage="Please enter a valid data"
+      label="{{ 'sideBar.inputs.longitude.label' | translate }}"
+      placeholder="{{ 'sideBar.inputs.longitude.placeholder' | translate }}"
+      errorMessage="{{ 'sideBar.inputs.longitude.error' | translate }}"
     ></app-input>
 
     <app-input
-      *ngIf="autocompleteControl.value === 'city'"
+      *ngIf="autocompleteControl.value === 'City'"
       formControlName="city"
       type="text"
-      label="City"
-      placeholder="Enter a city"
-      errorMessage="Please enter a valid data"
+      label="{{ 'sideBar.inputs.city.label' | translate }}"
+      placeholder="{{ 'sideBar.inputs.city.placeholder' | translate }}"
+      errorMessage="{{ 'sideBar.inputs.city.error' | translate }}"
     ></app-input>
 
     <app-input
-      *ngIf="autocompleteControl.value === 'zip'"
+      *ngIf="autocompleteControl.value === 'Zip'"
       formControlName="zip"
       type="number"
-      label="Zip code"
-      placeholder="Enter a zip code"
-      errorMessage="Please enter a valid data"
+      label="{{ 'sideBar.inputs.zip.label' | translate }}"
+      placeholder="{{ 'sideBar.inputs.zip.placeholder' | translate }}"
+      errorMessage="{{ 'sideBar.inputs.zip.error' | translate }}"
     ></app-input>
   </form>
 </div>

@@ -8,6 +8,7 @@ export interface IWeatherForm {
 export interface IGetWeather {
   lat: number;
   lon: number;
+  lang?: string;
 }
 
 export interface IGetCurrentWeatherResponse {
@@ -50,6 +51,7 @@ export interface IWeatherCard {
   label?: string;
   key?: string;
   value?: any;
+  name?: string;
 }
 
 export interface IAirPollutionResponse {
