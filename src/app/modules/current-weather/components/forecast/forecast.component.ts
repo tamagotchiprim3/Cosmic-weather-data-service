@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import { IHourForecast } from 'src/app/shared/interfaces/weather.interface';
@@ -17,7 +19,8 @@ import { ForecastDialogComponent } from '../forecast-dialog/forecast-dialog.comp
   styleUrls: ['./forecast.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForecastComponent implements OnInit {
+@UntilDestroy()
+export class ForecastComponent implements OnInit, OnDestroy {
   public forecastList?: IHourForecast[];
   public iconUrl?: string;
   constructor(
@@ -26,16 +29,20 @@ export class ForecastComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
-    this.store.select(selectHourlyForecast).subscribe((data) => {
-      if (data) {
-        this.forecastList = cloneDeep(data).map((item) => {
-          item.weather[0].icon = `../../../../../assets/weather-conditions/${item.weather[0].icon}.png`;
-          return item;
-        });
-        this.cdr.markForCheck();
-      }
-    });
+    this.store
+      .select(selectHourlyForecast)
+      .pipe(untilDestroyed(this))
+      .subscribe((data) => {
+        if (data) {
+          this.forecastList = cloneDeep(data).map((item) => {
+            item.weather[0].icon = `../../../../../assets/weather-conditions/${item.weather[0].icon}.png`;
+            return item;
+          });
+          this.cdr.markForCheck();
+        }
+      });
   }
+  ngOnDestroy(): void {}
 
   public openDialog(item: IHourForecast): void {
     const dialogRef = this.dialog.open(ForecastDialogComponent, {

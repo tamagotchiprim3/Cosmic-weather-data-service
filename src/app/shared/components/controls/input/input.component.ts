@@ -3,9 +3,11 @@ import {
   Component,
   DoCheck,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-input',
@@ -13,7 +15,10 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
+@UntilDestroy()
+export class InputComponent
+  implements OnInit, DoCheck, ControlValueAccessor, OnDestroy
+{
   @Input() public min: number;
   @Input() public max: number;
   @Input() public type: string;
@@ -39,6 +44,7 @@ export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
       this.initErrors();
     }
   }
+  ngOnDestroy(): void {}
 
   writeValue(value: any): void {
     this.control.setValue(value);
@@ -53,9 +59,11 @@ export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   ngOnInit(): void {
     this.control.setValue(this.ngControl.control.value);
-    this.control.valueChanges.subscribe((value: any) => {
-      this.onChange(value);
-    });
+    this.control.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value: any) => {
+        this.onChange(value);
+      });
   }
 
   public initErrors(): void {

@@ -59,7 +59,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
     });
     this.locationForm
       .get('latitude')
-      .valueChanges.subscribe((value: number) => {
+      .valueChanges.pipe(untilDestroyed(this))
+      .subscribe((value: number) => {
         if (value < -90) {
           this.locationForm.get('latitude').setValue(-90);
         } else if (value > 90) {
@@ -69,7 +70,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     this.locationForm
       .get('longitude')
-      .valueChanges.subscribe((value: number) => {
+      .valueChanges.pipe(untilDestroyed(this))
+      .subscribe((value: number) => {
         if (value < -180) {
           this.locationForm.get('longitude').setValue(-180);
         } else if (value > 180) {

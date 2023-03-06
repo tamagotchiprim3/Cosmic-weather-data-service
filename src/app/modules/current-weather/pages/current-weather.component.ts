@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep } from 'lodash';
@@ -17,7 +23,8 @@ import { SideBarComponent } from '../components/side-bar/side-bar.component';
   styleUrls: ['./current-weather.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CurrentWeatherComponent {
+@UntilDestroy()
+export class CurrentWeatherComponent implements OnDestroy {
   @ViewChild(SideBarComponent) sidebar: SideBarComponent;
 
   public theme: string = 'white';
@@ -25,15 +32,22 @@ export class CurrentWeatherComponent {
   public dataTemp?: { location: string; temp: number; icon: string };
 
   constructor(private store: Store, private translate: TranslateService) {
-    store.select(selectCurrentTemperature).subscribe((data) => {
-      if (data && data.icon && data.location && data.temp) {
-        this.dataTemp = cloneDeep(data);
-      }
-    });
-    store.select(selectSpinnerCount).subscribe((spnrCount) => {
-      this.spnrCount = spnrCount;
-    });
+    store
+      .select(selectCurrentTemperature)
+      .pipe(untilDestroyed(this))
+      .subscribe((data) => {
+        if (data && data.icon && data.location && data.temp) {
+          this.dataTemp = cloneDeep(data);
+        }
+      });
+    store
+      .select(selectSpinnerCount)
+      .pipe(untilDestroyed(this))
+      .subscribe((spnrCount) => {
+        this.spnrCount = spnrCount;
+      });
   }
+  ngOnDestroy(): void {}
 
   public changeLanguage(): void {
     if (

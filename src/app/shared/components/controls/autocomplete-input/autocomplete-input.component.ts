@@ -3,9 +3,11 @@ import {
   Component,
   DoCheck,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
 import { IAutocompleteOption } from 'src/app/shared/constants/autocomplete-options.const';
 
@@ -15,8 +17,9 @@ import { IAutocompleteOption } from 'src/app/shared/constants/autocomplete-optio
   styleUrls: ['./autocomplete-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+@UntilDestroy()
 export class AutocompleteInputComponent
-  implements OnInit, ControlValueAccessor, DoCheck
+  implements OnInit, ControlValueAccessor, DoCheck, OnDestroy
 {
   @Input() public defaulfValue: string = '';
   @Input() public options: IAutocompleteOption[];
@@ -44,6 +47,7 @@ export class AutocompleteInputComponent
       this.initErrors();
     }
   }
+  ngOnDestroy(): void {}
 
   writeValue(value: any): void {
     this.value = value;
@@ -57,9 +61,11 @@ export class AutocompleteInputComponent
 
   ngOnInit(): void {
     this.control.setValue(this.ngControl.control.value);
-    this.control.valueChanges.subscribe((value: any) => {
-      this.onChange(value);
-    });
+    this.control.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value: any) => {
+        this.onChange(value);
+      });
   }
 
   public initErrors(): void {

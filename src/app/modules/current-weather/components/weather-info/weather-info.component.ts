@@ -89,16 +89,22 @@ export class WeatherInfoComponent implements OnInit {
         }
       });
 
-    this.store.select(selectLatitude).subscribe((lat: number) => {
-      console.log('lat: ', lat);
-      this.lat = lat;
-      this.cdR.markForCheck();
-    });
+    this.store
+      .select(selectLatitude)
+      .pipe(untilDestroyed(this))
+      .subscribe((lat: number) => {
+        console.log('lat: ', lat);
+        this.lat = lat;
+        this.cdR.markForCheck();
+      });
 
-    this.store.select(selectLongitude).subscribe((lon: number) => {
-      this.lon = lon;
-      this.cdR.markForCheck();
-    });
+    this.store
+      .select(selectLongitude)
+      .pipe(untilDestroyed(this))
+      .subscribe((lon: number) => {
+        this.lon = lon;
+        this.cdR.markForCheck();
+      });
   }
   public trackByFn(index: any, item: any): any {
     return index;

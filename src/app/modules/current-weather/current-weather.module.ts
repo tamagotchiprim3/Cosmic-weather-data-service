@@ -29,6 +29,7 @@ import { WeatherCardComponent } from './components/weather-card/weather-card.com
 import { WeatherInfoComponent } from './components/weather-info/weather-info.component';
 import { CurrentWeatherRoutingModule } from './current-weather-routing.module';
 import { CurrentWeatherComponent } from './pages/current-weather.component';
+import { SpaceWeatherComponent } from './components/space-weather/space-weather.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -46,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ForecastDialogComponent,
     CalendarComponent,
     CalendarDialogComponent,
+    SpaceWeatherComponent,
   ],
   imports: [
     CommonModule,
