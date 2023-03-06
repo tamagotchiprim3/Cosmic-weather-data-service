@@ -32,6 +32,17 @@
     }
   },
   "main": {
+    "spaceWeather": {
+      "distMeasure": "Degree of perturbation of the Earth's magnetic field",
+      "dangLevel": "Danger level from energetic proton flares of solar flares",
+      "solarEff": "Influence of solar X-ray bursts on the Earth's ionosphere",
+      "spaceDist": "Space weather perturbation in the last 24 hours",
+      "kpIndex": "Planetary Kp-indexes",
+      "protonFlux": "Proton flux density according to GOES data",
+      "xrayFlow": "Flux of X-rays from the Sun",
+      "particleFluxes": "Particle fluxes according to Electro-L satellite data"
+    },
+
     "location": {
       "location": "Location",
       "timezone": "Timezone",
